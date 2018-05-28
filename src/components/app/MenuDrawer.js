@@ -43,7 +43,7 @@ function MenuDrawer(props) {
       <AppBar position="absolute" className={classes.appBar}>
         <Toolbar>
           <Typography variant="title" color="inherit" noWrap>
-            Ichain Asset managements
+            Ichain Asset Managements
           </Typography>
         </Toolbar>
       </AppBar>

@@ -10,4 +10,4 @@ class HomeContainer extends Component {
   }
 }
 
-export default HomeContainer
+export default HomeContainer 
