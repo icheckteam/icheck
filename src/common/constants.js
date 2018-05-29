@@ -7,5 +7,8 @@ export const ROUTES = {
   MARKET: "/market",
   INVOICES: "/invoinces",
   WALLET: '/wallet',
-  IDENTITY: '/identity'
+  IDENTITY: '/identity',
+  OPEN_WALLET: "/open-wallet",
+  NEW_WALLET: "/new-wallet"
 }
+

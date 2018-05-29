@@ -12,6 +12,8 @@ import WarrantyContainer from './containers/WarrantyContainer';
 import MarketContainer from './containers/MarketContainer';
 import WalletContainer from './containers/WalletContainer';
 import IdentityContainer from './containers/IdentityContainer';
+import OpenWalletContainer from './containers/OpenWalletContainer';
+import NewWalletContainer from './containers/NewWalletContainer';
 
 export const Routes = () => {
   return(
@@ -26,6 +28,8 @@ export const Routes = () => {
         <Route path={ROUTES.MARKET} component={MarketContainer} />
         <Route path={ROUTES.WALLET} component={WalletContainer} />
         <Route path={ROUTES.IDENTITY} component={IdentityContainer} />
+        <Route path={ROUTES.OPEN_WALLET} component={OpenWalletContainer} />
+        <Route path={ROUTES.NEW_WALLET} component={NewWalletContainer} />
       </div>
     </App>
   )
