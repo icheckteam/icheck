@@ -6,4 +6,6 @@ export const ROUTES = {
   SHIPPING: "/shipping",
   MARKET: "/market",
   INVOICES: "/invoinces",
+  WALLET: '/wallet',
+  IDENTITY: '/identity'
 }

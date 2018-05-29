@@ -5,11 +5,9 @@ import './app.css'
 
 export const App = (props) => {
   return(
-    <div>
-      <MenuDrawer>
-        {props.children}
-      </MenuDrawer>
-    </div>
+    <MenuDrawer>
+      {props.children}
+    </MenuDrawer>
   )
 }
 
