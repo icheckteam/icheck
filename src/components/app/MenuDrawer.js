@@ -42,7 +42,7 @@ function MenuDrawer(props) {
       <AppBar position="absolute" className={classes.appBar}>
         <Toolbar>
           <Typography variant="title" color="inherit" noWrap>
-            Ichain Asset Managements
+          Ichain - Supplychain tracebility
           </Typography>
         </Toolbar>
       </AppBar>

@@ -6,13 +6,14 @@ import { createLogger } from 'redux-logger'
 import './index.css';
 import registerServiceWorker from './registerServiceWorker';
 import Root from './Root';
+import rootReducer from './reducers'
 
 const middleware = [ thunk ];
 if (process.env.NODE_ENV !== 'production') {
   middleware.push(createLogger());
 }
 const store = createStore(
-  applyMiddleware(...middleware)
+  applyMiddleware(rootReducer, ...middleware)
 )
 
 ReactDOM.render(<Root store={store} />, document.getElementById('root'));

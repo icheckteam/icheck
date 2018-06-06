@@ -12,3 +12,10 @@ export const ROUTES = {
   NEW_WALLET: "/new-wallet"
 }
 
+
+
+
+export const ACTION_TYPES  = {
+  NEW_WALLET_ACCOUNT: 'NEW_WALLET_ACCOUNT',
+  RESET_WALLET_ACCOUNT: 'RESET_WALLET_ACCOUNT',
+}
