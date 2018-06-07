@@ -1,7 +1,7 @@
 import { isEmpty } from 'lodash'
-import { DEFAULT_WALLET } from '../common/constants';
+import { DEFAULT_WALLET, ACTION_TYPES } from '../common/constants';
 import { keys } from 'ichain-js-sdk';
-import { showErrorNotification, showInfoNotification } from './notification';
+import { showErrorNotification, showInfoNotification, hideNotification } from './notification';
 
 
 const STORAGE_KEY = 'userWallet'
@@ -39,6 +39,14 @@ export const updateAccounts = (accounts) => {
 }
 
 
+export const loadWallet = () => (dispatch) => {
+  dispatch({
+    type: ACTION_TYPES.LOAD_WALLET,
+    payload: getWallet(),
+  })
+}
+
+
 export const saveAccount = (name, address, key) => (dispatch) => {
   const dispatchError = (message) => {
     dispatch(showErrorNotification(message))
@@ -65,8 +73,40 @@ export const saveAccount = (name, address, key) => (dispatch) => {
   if (walletHasName(wallet, name)) {
     return dispatchError(`Account '${name}' already exists.`)
   }
-  wallet.accounts.push(new keys.Key({ address,  name, key }).export())
+  const newKey = new keys.Key({ address,  name, key });
+  wallet.accounts.push(newKey.export())
   setWallet(wallet)
   dispatch(showInfoNotification("Saved"))
+  dispatch({
+    type: ACTION_TYPES.SAVE_WALLET_ACCOUNT,
+    payload: newKey
+  })
   return wallet.accounts
+}
+
+
+
+export const saveWallet = (wallet) => {
+  setWallet(wallet.export())
+}
+
+export const setDefaultAccount = (index)=> (dispatch) => {
+  dispatch({
+    type: ACTION_TYPES.SET_DEFAULT_ACCOUNT,
+    payload: index,
+  })
+}
+
+
+export const decrypt = (index, wallet, passphrase)=> (dispatch) => {
+  dispatch(showInfoNotification('Generating private key...'))
+  return wallet.decrypt(index, passphrase).then(() => {
+    dispatch(hideNotification())
+    dispatch({
+      type: ACTION_TYPES.DECRYPT,
+      payload: {
+        privateKey: wallet.accounts[index].privateKey,
+      }
+    })
+  });
 }
