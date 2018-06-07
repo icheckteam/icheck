@@ -18,6 +18,7 @@ class AssetsContainer extends Component {
   render() {
     return (
       <div>
+        <h1>List all assets</h1>
         <div>
           <Button component={Link} variant="raised" color="primary" to={ROUTES.CREATE_ASSET}>
             Add new asset

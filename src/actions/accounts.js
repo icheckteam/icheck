@@ -100,7 +100,10 @@ export const setDefaultAccount = (index)=> (dispatch) => {
 
 export const decrypt = (index, wallet, passphrase)=> (dispatch) => {
   dispatch(showInfoNotification('Generating private key...'))
-  return wallet.decrypt(index, passphrase).then(() => {
+  return wallet.decrypt(index, passphrase).then((ok) => {
+    if (!wallet.accounts[index]._privateKey) {
+      return dispatch(showErrorNotification("decrypt error"))
+    }
     dispatch(hideNotification())
     dispatch({
       type: ACTION_TYPES.DECRYPT,
@@ -109,4 +112,26 @@ export const decrypt = (index, wallet, passphrase)=> (dispatch) => {
       }
     })
   });
+}
+
+export const handleLogin = (key, password) => (dispatch) => {
+  const newKey = new keys.Key(key);
+  dispatch(showInfoNotification('Loading'))
+  if (newKey._privateKey) {
+    return newKey.encrypt(password).then((ok) => {
+      if (!ok) {
+        return dispatch(showErrorNotification("encrypt error"))
+      }
+      dispatch(hideNotification())
+      return dispatch(saveAccount(newKey.address, newKey.address, newKey.encrypted))
+    });
+  } else {
+    return newKey.decrypt(password).then((ok) => {
+      if (!newKey._privateKey) {
+        return dispatch(showErrorNotification("decrypt error"))
+      }
+      dispatch(hideNotification())
+      return dispatch(saveAccount(newKey.address, newKey.address, newKey.encrypted))
+    });
+  }
 }

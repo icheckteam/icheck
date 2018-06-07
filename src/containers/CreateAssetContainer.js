@@ -23,7 +23,7 @@ class CreateAssetContainer extends Component {
     const { classes } = this.props;
     return (
       <div className={classes.container}>
-        <h3>Add new asset</h3>
+        <h1>Add new asset</h1>
         <div className={classes.createAssetForm}>
           <CreateAssetFrom/>
         </div>
