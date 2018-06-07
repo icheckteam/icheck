@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import CopyToClipboard from '../components/CopyToClipboard';
+import DownloadWallet from './DownloadWallet';
+import { saveAccount } from '../actions/accounts';
+import { resetKey } from '../actions/generateWallet';
 function mapStateToProps(state) {
   return {
     account: state.generateWallet
@@ -10,12 +12,12 @@ function mapStateToProps(state) {
 
 class DownloadWalletContainer extends Component {
   render() {
-    const { account } = this.props;
+    const { account, resetKey, history, saveAccount} = this.props;
     return (
-      <div>
-        { account.address }
-        <CopyToClipboard tooltip="Copied" text={account.address}/>
-      </div>
+      <DownloadWallet {...account} 
+        resetKey={resetKey}
+        history={history}
+        saveAccount={saveAccount}/>
     );
   }
 }
@@ -25,4 +27,5 @@ DownloadWalletContainer.propTypes = {
 
 export default connect(
   mapStateToProps,
+  { resetKey, saveAccount}
 )(DownloadWalletContainer);

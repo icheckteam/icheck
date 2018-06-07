@@ -32,3 +32,16 @@ export const ACTION_TYPES  = {
   SHOW_NOTIFICATION: "SHOW_NOTIFICATION",
   HIDE_NOTIFICATION: "HIDE_NOTIFICATION",
 }
+
+
+export const DEFAULT_WALLET = {
+  name: 'userWallet',
+  version: '1.0',
+  scrypt: {
+    cost: 16384,
+    blockSize: 8,
+    parallel: 8,
+    size: 64
+  },
+  accounts: [],
+}

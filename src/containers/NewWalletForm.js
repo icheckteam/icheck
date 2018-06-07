@@ -59,6 +59,7 @@ class NewWalletFrom extends Component {
           fullWidth={true}
           margin="normal"
         />
+        <p></p>
         <TextField
           id="passphrase1"
           label="Enter passphrase again"
@@ -68,6 +69,7 @@ class NewWalletFrom extends Component {
           onChange={this.handleChange('passphrase1')}
           margin="normal"
         />
+        <p></p>
         <Button variant="raised" color="primary" type='submit' disabled={disabledButton}>Generate keys</Button>
       </form>
     );

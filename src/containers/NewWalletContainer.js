@@ -29,9 +29,12 @@ class NewWalletContainer extends Component {
   render() {
     const { classes } = this.props;
     return (
-      <Paper className={classes.root} elevation={4}>
-        <NewWalletForm onSubmit={this.generateNewWalletAccount}/>
-      </Paper>
+      <div>
+        <h1>Add new wallet account</h1>
+        <Paper className={classes.root} elevation={4}>
+          <NewWalletForm onSubmit={this.generateNewWalletAccount}/>
+        </Paper>
+      </div>
     );
   }
 }
