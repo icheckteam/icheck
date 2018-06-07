@@ -10,6 +10,18 @@ export const showErrorNotification = (content) => (dispatch) => {
   })
 }
 
+
+export const showInfoNotification = (content) => (dispatch) => {
+  dispatch({
+    type: ACTION_TYPES.SHOW_NOTIFICATION,
+    payload: {
+      title: "Info",
+      content: content,
+    }
+  })
+}
+
+
 export const hideNotification = () => (dispatch) => {
   dispatch({
     type: ACTION_TYPES.HIDE_NOTIFICATION,

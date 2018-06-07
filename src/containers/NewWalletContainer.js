@@ -3,9 +3,8 @@ import { connect } from 'react-redux';
 import Paper from '@material-ui/core/Paper';
 import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
-import DownloadWallet from './DownloadWallet';
-import NewWalletFrom from './NewWalletFrom';
 import { generateNewWalletAccount } from '../actions/generateWallet'
+import NewWalletForm from './NewWalletForm';
 function mapStateToProps(state) {
   return {
     account: state.generateWallet,
@@ -22,13 +21,16 @@ const styles = theme => ({
 
 
 class NewWalletContainer extends Component {
+
+  generateNewWalletAccount = (passphrase, passphrase1) => {
+    this.props.generateNewWalletAccount(passphrase, passphrase, this.props.history)
+  }
+
   render() {
-    const { classes, generateNewWalletAccount, account } = this.props;
+    const { classes } = this.props;
     return (
       <Paper className={classes.root} elevation={4}>
-        {account.address ? (
-          <DownloadWallet account={account}/>
-        ): <NewWalletFrom onSubmit={generateNewWalletAccount}/>}
+        <NewWalletForm onSubmit={this.generateNewWalletAccount}/>
       </Paper>
     );
   }
@@ -37,7 +39,7 @@ class NewWalletContainer extends Component {
 NewWalletContainer.propTypes = {
   classes: PropTypes.object.isRequired,
   generateNewWalletAccount: PropTypes.func.isRequired,
-  account: PropTypes.object.isRequired,
+  history: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles)(connect(

@@ -9,10 +9,20 @@ export const ROUTES = {
   WALLET: '/wallet',
   IDENTITY: '/identity',
   OPEN_WALLET: "/open-wallet",
-  NEW_WALLET: "/new-wallet"
+  NEW_WALLET: "/new-wallet",
+  DOWLOAD_WALLET_ACCOUNT: '/download-wallet-account',
 }
 
 
+export const WALLET = {
+  MIN_PASSPHRASE_LEN: 4,
+  
+}
+
+export const TIME = {
+  ONE_SECOND_MS: 1000,
+  FIVE_MINUTES_MS: 300000,
+}
 
 
 export const ACTION_TYPES  = {

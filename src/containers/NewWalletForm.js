@@ -22,19 +22,20 @@ const styles = theme => ({
 class NewWalletFrom extends Component {
   state = {
     passphrase: "",
-    passphrase2: "",
+    passphrase1: "",
   }
 
   resetFields () {
     this.setState({
       passphrase: '',
-      passphrase2: '',
+      passphrase1: '',
     })
   }
 
   createWalletAccount = () => (e) => {
     e.preventDefault()
-    this.props.onSubmit(this.state)
+    const { passphrase, passphrase1 } = this.state;
+    this.props.onSubmit(passphrase, passphrase1)
   }
 
   handleChange = name => event => {
@@ -45,14 +46,16 @@ class NewWalletFrom extends Component {
 
   render() {
     const { classes } = this.props;
+    const { passphrase, passphrase1 } = this.state;
+    let disabledButton = passphrase === '' || passphrase1 === '' 
     return (
       <form onSubmit={this.createWalletAccount()} noValidate autoComplete="off">
         <TextField
           id="passphrase"
           label="Enter passphrase here"
           className={classes.textField}
-          value={this.state.passphrase}
-          onChange={this.handleChange('name')}
+          value={passphrase}
+          onChange={this.handleChange('passphrase')}
           fullWidth={true}
           margin="normal"
         />
@@ -62,10 +65,10 @@ class NewWalletFrom extends Component {
           className={classes.textField}
           value={this.state.passphrase1}
           fullWidth={true}
-          onChange={this.handleChange('name')}
+          onChange={this.handleChange('passphrase1')}
           margin="normal"
         />
-        <Button variant="raised" color="primary" type='submit'>Generate keys</Button>
+        <Button variant="raised" color="primary" type='submit' disabled={disabledButton}>Generate keys</Button>
       </form>
     );
   }
