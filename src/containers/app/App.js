@@ -2,11 +2,15 @@ import React from 'react'
 import MenuDrawer from './MenuDrawer';
 import PropTypes from 'prop-types';
 import './app.css'
+import NotificationContainer from '../NotificationContainer';
 
 export const App = (props) => {
   return(
     <MenuDrawer>
-      {props.children}
+      <div>
+        <NotificationContainer/>
+        {props.children}
+      </div>
     </MenuDrawer>
   )
 }

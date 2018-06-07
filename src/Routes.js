@@ -1,6 +1,6 @@
 import React from 'react'
 import { Route } from "react-router-dom";
-import { App } from './components/app/App';
+import { App } from './containers/app/App';
 import { ROUTES } from './common/constants';
 
 import HomeContainer from './containers/HomeContainer';

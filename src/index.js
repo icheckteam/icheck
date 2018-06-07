@@ -13,7 +13,8 @@ if (process.env.NODE_ENV !== 'production') {
   middleware.push(createLogger());
 }
 const store = createStore(
-  applyMiddleware(rootReducer, ...middleware)
+  rootReducer,
+  applyMiddleware(...middleware)
 )
 
 ReactDOM.render(<Root store={store} />, document.getElementById('root'));

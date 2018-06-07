@@ -13,6 +13,7 @@ import InvoiceIcon from '@material-ui/icons/InsertDriveFile';
 import IdentityIcon from '@material-ui/icons/PermIdentity';
 import { ROUTES } from '../../common/constants';
 
+
 export const menuListItems = (
   <div>
     <Link to={ROUTES.HOME}>

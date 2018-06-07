@@ -6,7 +6,7 @@ const initialState = {
   encrypted: null
 }
 
-export default (state, action) => {
+export default (state = initialState, action) => {
   switch (action.type) {
     case ACTION_TYPES.NEW_WALLET_ACCOUNT: {
       const { passphrase, address, encrypted } = action.payload

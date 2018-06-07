@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Paper from '@material-ui/core/Paper';
-import { keys } from 'ichain-js-sdk'
 import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import DownloadWallet from './DownloadWallet';
 import NewWalletFrom from './NewWalletFrom';
+import { generateNewWalletAccount } from '../actions/generateWallet'
 function mapStateToProps(state) {
   return {
-
+    account: state.generateWallet,
   };
 }
 
@@ -22,23 +22,13 @@ const styles = theme => ({
 
 
 class NewWalletContainer extends Component {
-  state = {
-    account: undefined
-  }
-
-  handleNewAccount = () => (opts) => {
-    const account = new keys.Key()
-    this.setState({
-      account: account,
-    })
-  }
   render() {
-    const { classes } = this.props;
+    const { classes, generateNewWalletAccount, account } = this.props;
     return (
       <Paper className={classes.root} elevation={4}>
-        {this.state.account ? (
-          <DownloadWallet account={this.state.account}/>
-        ): <NewWalletFrom onSubmit={this.handleNewAccount()}/>}
+        {account.address ? (
+          <DownloadWallet account={account}/>
+        ): <NewWalletFrom onSubmit={generateNewWalletAccount}/>}
       </Paper>
     );
   }
@@ -46,8 +36,11 @@ class NewWalletContainer extends Component {
 
 NewWalletContainer.propTypes = {
   classes: PropTypes.object.isRequired,
+  generateNewWalletAccount: PropTypes.func.isRequired,
+  account: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles)(connect(
   mapStateToProps,
+  { generateNewWalletAccount }
 )(NewWalletContainer));
