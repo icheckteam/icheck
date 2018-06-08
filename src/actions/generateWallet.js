@@ -1,6 +1,6 @@
 import { ACTION_TYPES, WALLET, ROUTES } from "../common/constants";
 import { showErrorNotification, showInfoNotification, hideNotification } from "./notification";
-import { keys } from "ichain-js-sdk";
+import { keys } from "@icheck/ichain-js-sdk";
 
 // Actions
 

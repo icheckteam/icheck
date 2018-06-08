@@ -1,5 +1,5 @@
 import { ACTION_TYPES } from "../common/constants";
-import { keys } from "ichain-js-sdk";
+import { keys } from "@icheck/ichain-js-sdk";
 
 
 

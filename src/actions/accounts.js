@@ -1,6 +1,6 @@
 import { isEmpty } from 'lodash'
 import { DEFAULT_WALLET, ACTION_TYPES } from '../common/constants';
-import { keys } from 'ichain-js-sdk';
+import { keys } from '@icheck/ichain-js-sdk';
 import { showErrorNotification, showInfoNotification, hideNotification } from './notification';
 
 
@@ -119,7 +119,7 @@ export const handleLogin = (key, password) => (dispatch) => {
   dispatch(showInfoNotification('Loading'))
   if (newKey._privateKey) {
     return newKey.encrypt(password).then((ok) => {
-      if (!ok) {
+      if (!newKey._encrypted) {
         return dispatch(showErrorNotification("encrypt error"))
       }
       dispatch(hideNotification())
