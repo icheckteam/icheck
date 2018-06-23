@@ -7,7 +7,7 @@ import './index.css';
 import registerServiceWorker from './registerServiceWorker';
 import Root from './Root';
 import rootReducer from './reducers'
-import { loadWallet } from './actions/accounts';
+import { getAccount } from './actions/accounts';
 
 const middleware = [ thunk ];
 if (process.env.NODE_ENV !== 'production') {
@@ -17,6 +17,6 @@ const store = createStore(
   rootReducer,
   applyMiddleware(...middleware)
 )
-store.dispatch(loadWallet())
+store.dispatch(getAccount("cosmosaccaddr189nvnm272dsh9tx6z8gjlpl2lxmy8x4jft6yjp"))
 ReactDOM.render(<Root store={store} />, document.getElementById('root'));
 registerServiceWorker();

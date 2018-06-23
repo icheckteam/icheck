@@ -20,7 +20,7 @@ const styles = theme => ({
 });
 
 function Assets(props) {
-  const { classes } = props;
+  const { classes, assets } = props;
 
   return (
     <Paper className={classes.root}>
@@ -30,16 +30,24 @@ function Assets(props) {
             <TableCell>ID</TableCell>
             <TableCell>Name</TableCell>
             <TableCell>Quantity</TableCell>
-            <TableCell>Created</TableCell>
+            <TableCell>Height</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          <TableRow>
-            <TableCell>0594543969359</TableCell>
-            <TableCell>Tomato</TableCell>
-            <TableCell>1000</TableCell>
-            <TableCell>12/05/2018</TableCell>
-          </TableRow>
+          {assets ? assets.map(asset => {
+            return (
+              <TableRow>
+                <TableCell>{asset.id}</TableCell>
+                <TableCell>{asset.name}</TableCell>
+                <TableCell>{asset.quantity}</TableCell>
+                <TableCell>{asset.height}</TableCell>
+              </TableRow>
+            )
+          }): (
+             <TableRow>
+                <TableCell>Create asset</TableCell>
+              </TableRow>
+          )}
         </TableBody>
       </Table>
     </Paper>

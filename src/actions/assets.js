@@ -74,7 +74,7 @@ export const revokeReporter = (data) => (dispatch) => {
 
 export const queryAccountAssets = (account) => (dispatch) => {
   dispatch({type: ACTION_TYPES.LOAD_ASSETS})
-  node.queryAccountAssets(account)
+  node.getAccountAssets(account)
     .then(payload => dispatch({type: ACTION_TYPES.LOAD_ASSETS_SUCCESS, payload: payload}))
     .catch(payload => dispatch({type:ACTION_TYPES.LOAD_ASSET_ERROR, payload}));
 }

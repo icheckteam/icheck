@@ -1,8 +1,6 @@
-import { isEmpty } from 'lodash'
-import { DEFAULT_WALLET, ACTION_TYPES } from '../common/constants';
-import { keys } from '@icheck/ichain-js-sdk';
-import { showErrorNotification, showInfoNotification, hideNotification } from './notification';
 
+import { DEFAULT_WALLET, ACTION_TYPES } from '../common/constants';
+import node from '../node'
 
 const STORAGE_KEY = 'userWallet'
 
@@ -16,19 +14,7 @@ const getWallet = ()=> {
   return wallet || DEFAULT_WALLET
 }
 
-const walletHasName = (wallet, name) => {
-  return wallet.accounts.some(account => account.name === name)
-}
 
-const walletHasKey = (wallet, key) => {
-  return wallet.accounts.some(account => account.key === key)
-}
-
-
-
-const setWallet = async (wallet) => {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(wallet))
-}
 
 
 export const updateAccounts = (accounts) => {
@@ -48,90 +34,27 @@ export const loadWallet = () => (dispatch) => {
 
 
 export const saveAccount = (name, address, key) => (dispatch) => {
-  const dispatchError = (message) => {
-    dispatch(showErrorNotification(message))
-    return false
-  }
-  if (isEmpty(name)) {
-    return dispatchError('A valid name is required.')
-  }
-
-  if (isEmpty(address)) {
-    return dispatchError('A valid address is required.')
-  }
-
-  if (isEmpty(key)) {
-    return dispatchError('A valid key is required.')
-  }
-
-  const wallet = getWallet()
-
-  if (walletHasKey(wallet, key)) {
-    return dispatchError(`Address '${address}' already exists.`)
-  }
-
-  if (walletHasName(wallet, name)) {
-    return dispatchError(`Account '${name}' already exists.`)
-  }
-  const newKey = new keys.Key({ address,  name, key });
-  wallet.accounts.push(newKey.export())
-  setWallet(wallet)
-  dispatch(showInfoNotification("Saved"))
-  dispatch({
-    type: ACTION_TYPES.SAVE_WALLET_ACCOUNT,
-    payload: newKey
-  })
-  return wallet.accounts
 }
 
 
 
 export const saveWallet = (wallet) => {
-  setWallet(wallet.export())
 }
 
 export const setDefaultAccount = (index)=> (dispatch) => {
-  dispatch({
-    type: ACTION_TYPES.SET_DEFAULT_ACCOUNT,
-    payload: index,
-  })
 }
 
 
 export const decrypt = (index, wallet, passphrase)=> (dispatch) => {
-  dispatch(showInfoNotification('Generating private key...'))
-  return wallet.decrypt(index, passphrase).then((ok) => {
-    if (!wallet.accounts[index]._privateKey) {
-      return dispatch(showErrorNotification("decrypt error"))
-    }
-    dispatch(hideNotification())
-    dispatch({
-      type: ACTION_TYPES.DECRYPT,
-      payload: {
-        privateKey: wallet.accounts[index].privateKey,
-      }
-    })
-  });
 }
 
 export const handleLogin = (key, password) => (dispatch) => {
-  const newKey = new keys.Key(key);
-  dispatch(showInfoNotification('Loading'))
-  if (newKey._privateKey) {
-    return newKey.encrypt(password).then((ok) => {
-      if (!newKey._encrypted) {
-        return dispatch(showErrorNotification("encrypt error"))
-      }
-      dispatch(hideNotification())
-      return dispatch(saveAccount(newKey.address, newKey.address, newKey.encrypted))
-    });
-  } else {
-    return newKey.decrypt(password).then((ok) => {
-      if (!newKey._privateKey) {
-        return dispatch(showErrorNotification("decrypt error"))
-      }
-      dispatch(hideNotification())
-      return dispatch(saveAccount(newKey.address, newKey.address, newKey.encrypted))
-    });
-  }
 }
+
+
+export const getAccount = (address) => (dispatch) => {
+  dispatch({type: ACTION_TYPES.LOAD_ACCOUNT})
+  node.queryAccount(address).then(acc => acc.value.BaseAccount.value)
+    .then(payload => dispatch({type: ACTION_TYPES.LOAD_ACCOUNT_SUCCESS, payload}))
+    .catch(payload => dispatch({type: ACTION_TYPES.LOAD_ACCOUNT_ERROR, payload}))
+};

@@ -1,6 +1,4 @@
-import { ACTION_TYPES, WALLET, ROUTES } from "../common/constants";
-import { showErrorNotification, showInfoNotification, hideNotification } from "./notification";
-import { keys } from "@icheck/ichain-js-sdk";
+import { ACTION_TYPES} from "../common/constants";
 
 // Actions
 
@@ -23,31 +21,5 @@ export function resetKey () {
 }
 
 
-export const generateNewWalletAccount = (passphrase, passphrase1, history) => (dispatch) => {
-  const dispatchError = (message) => {
-    dispatch(showErrorNotification(message))
-    return false
-  }
-  if (passphrase !== passphrase1) {
-    return dispatchError('Passphrases do not match')
-  }
-
-  if (passphrase.length < WALLET.MIN_PASSPHRASE_LEN) {
-    return dispatchError('Please choose a longer passphrase')
-  }
-  const account = new keys.Key()
-  dispatch(showInfoNotification('Generating encoded key...'))
-  return account.encrypt(passphrase).then(() => {
-    dispatch(hideNotification())
-    const { address, encrypted, privateKey } = account
-    dispatch(newWalletAccount({
-      address,
-      passphrase,
-      encrypted,
-      privateKey,
-    }))
-    history.push(ROUTES.DOWLOAD_WALLET_ACCOUNT)
-  }).catch(() => {
-    return dispatchError('An error occured while trying to generate a new wallet')
-  });
+export const generateNewWalletAccount = () => (dispatch) => {
 }

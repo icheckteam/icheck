@@ -19,9 +19,14 @@ class CreateAssetFrom extends Component {
   state = {
     id: "",
     name: "",
-    email: "",
-    quantity: 0,
-    company: "",
+    quantity: 1,
+    asset_type: "asset",
+    type: "",
+    subtype: "",
+    barcode: "",
+    weight: 0,
+    longitude: "",
+    latitude: "",
   };
 
   handleChange = name => event => {
@@ -31,7 +36,50 @@ class CreateAssetFrom extends Component {
   };
 
   handleSubmit = () => event => {
-    // handle submit
+    event.preventDefault()
+    let properties = [];
+    if (this.state.name > 0) {
+      properties.push({
+        name: "weight",
+        type: 4,
+        number_value: this.state.name,
+      })
+    }
+
+    if (this.state.longitude != "" && this.state.latitude != "") {
+      properties.push({
+        name: "location",
+        type: 6,
+        location_value: {
+          longitude: this.state.longitude,
+          latitude: this.state.latitude,
+        },
+      })
+    }
+
+    if (this.state.type != "") {
+      properties.push({
+        name: "type",
+        type: 2,
+        string_value: this.state.type
+      })
+    }
+
+    if (this.state.subtype != "") {
+      properties.push({
+        name: "subtype",
+        type: 2,
+        string_value: this.state.subtype
+      })
+    }
+
+    this.props.onSubmit({
+      asset_id: this.state.id,
+      name: this.state.name,
+      quantity: this.state.quantity,
+      asset_type: this.state.asset_type,
+      properties: properties,
+    });
   }
 
   render() {
@@ -67,25 +115,66 @@ class CreateAssetFrom extends Component {
           margin="normal"
         />
         <TextField
-          id="company"
-          label="Company"
+          id="type"
+          label="Type"
           fullWidth={true}
           className={classes.textField}
-          value={this.state.company}
-          onChange={this.handleChange('company')}
+          value={this.state.type}
+          onChange={this.handleChange('type')}
+          margin="normal"
+        />
+       <TextField
+          id="subtype"
+          label="Subtype"
+          fullWidth={true}
+          className={classes.textField}
+          value={this.state.subtype}
+          onChange={this.handleChange('subtype')}
           margin="normal"
         />
         <TextField
-          id="email"
-          label="Email"
+          id="barcode"
+          label="Barcode"
           fullWidth={true}
           className={classes.textField}
-          value={this.state.email}
-          onChange={this.handleChange('email')}
+          value={this.state.barcode}
+          onChange={this.handleChange('barcode')}
           margin="normal"
         />
 
-        <Button variant="raised" color="primary" className={classes.button} onClick={this.handleSubmit}>
+
+        <TextField
+          id="weight"
+          label="Weight (Kg)"
+          type="number"
+          fullWidth={true}
+          className={classes.textField}
+          value={this.state.weight}
+          onChange={this.handleChange('weight')}
+          margin="normal"
+        />
+
+        <TextField
+          id="latitude"
+          label="Latitude"
+          fullWidth={true}
+          className={classes.textField}
+          value={this.state.latitude}
+          onChange={this.handleChange('latitude')}
+          margin="normal"
+        />
+
+        <TextField
+          id="longitude"
+          label="Longitude"
+          fullWidth={true}
+          className={classes.textField}
+          value={this.state.longitude}
+          onChange={this.handleChange('longitude')}
+          margin="normal"
+        />
+
+        <Button variant="raised" color="primary" type="submit" className={classes.button} onClick={this.handleSubmit()}>
           Submit
         </Button>
       </form>

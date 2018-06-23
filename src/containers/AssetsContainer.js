@@ -4,18 +4,27 @@ import Button from '@material-ui/core/Button';
 import { Link } from 'react-router-dom'
 import Assets from './assets/Assets';
 import { ROUTES } from '../common/constants';
+import { queryAccountAssets } from '../actions/assets';
+
 
 
 
 
 function mapStateToProps(state) {
   return {
-
+    assets: state.assets.assets,
+    addr: state.auth.addr
   };
 }
 
 class AssetsContainer extends Component {
+
+  componentDidMount() {
+    this.props.queryAccountAssets(this.props.addr)
+  }
+
   render() {
+    const { assets } = this.props
     return (
       <div>
         <h1>List all assets</h1>
@@ -24,7 +33,7 @@ class AssetsContainer extends Component {
             Add new asset
           </Button>
         </div>
-        <Assets/>
+        <Assets items={assets}/>
       </div>  
     );  
   } 
@@ -32,4 +41,5 @@ class AssetsContainer extends Component {
 
 export default connect(
   mapStateToProps, 
+  { queryAccountAssets }
 )(AssetsContainer);
