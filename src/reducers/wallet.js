@@ -15,7 +15,7 @@ export default (state = initialState, action) => {
       const wallet = new keys.Wallet(action.payload)
       return {
         wallet: wallet,
-        defaultIndex: wallet.accounts.indexOf(wallet.defaultAccount)
+        defaultIndex: wallet.accounts.length > 0 ? wallet.accounts.indexOf(wallet.defaultAccount) : 0
       }
     }
     case ACTION_TYPES.SAVE_WALLET_ACCOUNT: {
