@@ -42,11 +42,11 @@ class CreateAssetFrom extends Component {
       properties.push({
         name: "weight",
         type: 4,
-        number_value: this.state.name,
+        number_value: this.state.weight,
       })
     }
 
-    if (this.state.longitude != "" && this.state.latitude != "") {
+    if (this.state.longitude && this.state.latitude) {
       properties.push({
         name: "location",
         type: 6,
@@ -57,7 +57,7 @@ class CreateAssetFrom extends Component {
       })
     }
 
-    if (this.state.type != "") {
+    if (this.state.type) {
       properties.push({
         name: "type",
         type: 2,
@@ -65,7 +65,7 @@ class CreateAssetFrom extends Component {
       })
     }
 
-    if (this.state.subtype != "") {
+    if (this.state.subtype) {
       properties.push({
         name: "subtype",
         type: 2,

@@ -58,3 +58,12 @@ export const getAccount = (address) => (dispatch) => {
     .then(payload => dispatch({type: ACTION_TYPES.LOAD_ACCOUNT_SUCCESS, payload}))
     .catch(payload => dispatch({type: ACTION_TYPES.LOAD_ACCOUNT_ERROR, payload}))
 };
+
+
+
+export const send = (recipient, data) => (dispatch) => {
+  dispatch({type: ACTION_TYPES.SEND})
+  node.send(recipient, data)
+    .then(payload => dispatch({type: ACTION_TYPES.SEND_SUCCESS, payload}))
+    .catch(payload => dispatch({type: ACTION_TYPES.SEND_ERROR, payload}))
+};
