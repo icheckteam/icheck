@@ -74,3 +74,5 @@ export const getTxs = (addr) => (dispatch) => {
     .then(payload => dispatch({type: ACTION_TYPES.LOAD_TXS_SUCCESS, payload}))
     .catch(payload => dispatch({type: ACTION_TYPES.LOAD_TXS_ERROR, payload}))
 };
+
+

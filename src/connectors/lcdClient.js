@@ -55,6 +55,32 @@ class Client {
     return this.request("POST", `/assets/${assetId}/properties`, data)
   }
 
+  generateSeed() {
+    return this.request("GET", `/keys/seed`)
+  }
+
+  storeKey() {
+    return this.request("POST", `/keys`)
+  }
+
+  getKey(name) {
+    return this.request("GET", `/keys/` + name )
+  }
+  
+  updateKey(data) {
+    return this.request("PUT", `/keys/` + data.name,  {
+      new_password: data.new_password,
+      old_password: data.old_password,
+    })
+  }
+
+  deleteKey(data) {
+    return this.request("DELETE", `/keys/` + data.name,  {
+      password: data.password,
+    })
+  }
+
+
   transferAsset(recipient, data) {
     return this.request("POST", `/accounts/${recipient}/transfer-asset`, data)
   }

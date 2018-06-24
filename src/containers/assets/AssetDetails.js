@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Paper, Typography } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
-import HistoryUpdate from './HistoryUpdate';
 import Materials from './Materials';
 import Reporters from './Reporters';
 import { Link } from "react-router-dom";
@@ -28,7 +27,7 @@ class AssetDetails extends Component {
   }
 
   render() {
-    const { classes, asset, history } = this.props;
+    const { classes, asset } = this.props;
     return (
       <div>
         <h1>{asset.name} - {asset.id}</h1>
