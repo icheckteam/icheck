@@ -38,7 +38,7 @@ function Assets(props) {
           {items ? items.map(item => {
             return (
               <TableRow key={item.id}>
-                <TableCell><Link to={"/asset-details/" + item.id}>{item.id}</Link></TableCell>
+                <TableCell><Link to={"/assets/" + item.id}>{item.id}</Link></TableCell>
                 <TableCell>{item.height}</TableCell>
                 <TableCell>{item.name}</TableCell>
                 <TableCell>{item.quantity}</TableCell>

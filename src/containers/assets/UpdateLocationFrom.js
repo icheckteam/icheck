@@ -13,9 +13,10 @@ const styles = theme => ({
   }
 });
 
-class TransferForm extends Component {
+class UpdateLocationFrom extends Component {
   state = {
-    recipient: "",
+    longitude: "",
+    latitude: "",
   }
 
   handleChange = name => event => {
@@ -26,7 +27,16 @@ class TransferForm extends Component {
   handleSubmit = () => (e) => {
     e.preventDefault()
     this.props.onSubmit({
-      recipient: this.state.recipient,
+      properties: [
+        {
+          name: "location",
+          type: 6,
+          location_value: {
+            longitude: this.state.longitude,
+            latitude: this.state.latitude,
+          },
+        }
+      ]
     })
   };
 
@@ -37,15 +47,25 @@ class TransferForm extends Component {
     return (
       <form className={classes.container} noValidate autoComplete="off">
         <TextField
-          id="recipient"
-          label="recipient"
+          id="longitude"
+          label="Longitude"
+
           className={classes.textField}
-          value={this.state.recipient}
-          onChange={this.handleChange('recipient')}
+          value={this.state.longitude}
+          onChange={this.handleChange('longitude')}
+          margin="normal"
+        />
+        <TextField
+          id="latitude"
+          label="latitude"
+
+          className={classes.textField}
+          value={this.state.latitude}
+          onChange={this.handleChange('latitude')}
           margin="normal"
         />
         <Button variant="raised" color="primary" type="submit" className={classes.button} onClick={this.handleSubmit()}>
-          Transfer
+          Update
         </Button>
       </form>
     );
@@ -54,4 +74,4 @@ class TransferForm extends Component {
 
 export default withStyles(
   styles,
-)(TransferForm);
+)(UpdateLocationFrom);

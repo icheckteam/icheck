@@ -51,7 +51,13 @@ class Client {
     return this.request("POST", `/assets/${assetId}/reporters/${reporter}/revoke`, data)
   }
 
+  updateProperties(assetId, data) {
+    return this.request("POST", `/assets/${assetId}/properties`, data)
+  }
 
+  transferAsset(recipient, data) {
+    return this.request("POST", `/accounts/${recipient}/transfer-asset`, data)
+  }
 
   txs(addr) {
     return Promise.all([

@@ -13,9 +13,9 @@ const styles = theme => ({
   }
 });
 
-class TransferForm extends Component {
+class UpdateWeightFrom extends Component {
   state = {
-    recipient: "",
+    weight: 0,
   }
 
   handleChange = name => event => {
@@ -26,7 +26,13 @@ class TransferForm extends Component {
   handleSubmit = () => (e) => {
     e.preventDefault()
     this.props.onSubmit({
-      recipient: this.state.recipient,
+      properties: [
+        {
+          name: "weight",
+          type: 4,
+          number_value: Number(this.state.weight),
+        }
+      ]
     })
   };
 
@@ -37,15 +43,16 @@ class TransferForm extends Component {
     return (
       <form className={classes.container} noValidate autoComplete="off">
         <TextField
-          id="recipient"
-          label="recipient"
+          id="weight"
+          label="Weight (Kg)"
+          type="number"
           className={classes.textField}
-          value={this.state.recipient}
-          onChange={this.handleChange('recipient')}
+          value={this.state.weight}
+          onChange={this.handleChange('weight')}
           margin="normal"
         />
         <Button variant="raised" color="primary" type="submit" className={classes.button} onClick={this.handleSubmit()}>
-          Transfer
+          Update
         </Button>
       </form>
     );
@@ -54,4 +61,4 @@ class TransferForm extends Component {
 
 export default withStyles(
   styles,
-)(TransferForm);
+)(UpdateWeightFrom);

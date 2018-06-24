@@ -19,8 +19,13 @@ function mapStateToProps(state) {
 
 class AssetsContainer extends Component {
 
-  componentDidMount() {
-    this.props.queryAccountAssets(this.props.addr)
+  constructor(props) {
+    super(props);
+
+    const { assets, queryAccountAssets, addr } = props;
+    if (assets.length ===0) {
+      queryAccountAssets(addr)
+    }
   }
 
   render() {

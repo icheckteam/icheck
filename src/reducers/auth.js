@@ -25,6 +25,15 @@ export default (state = initialState, action) => {
           sequence: action.payload.sequence,
         }
       }
+    case ACTION_TYPES.UPDATE_PROPERTIES_SUCCESS:
+    case ACTION_TYPES.TRANSFER_ASSET_SUCCESS:
+      return {
+        ...state,
+        config: {
+          ...state.config,
+          sequence: state.config.sequence+1,
+        }
+      }
     default:
       return state
   }

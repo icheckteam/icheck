@@ -6,7 +6,8 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import AddReporter from './AddReporter';
+import UpdateWeightForm from '../assets/UpdateWeightForm';
+
 const styles = theme => ({
   container: theme.mixins.gutters({
     paddingTop: 16,
@@ -21,35 +22,34 @@ const styles = theme => ({
   }
 });
 
-class Reporters extends Component {
-
-
-
-  renderRow(reporter) {
+class HistoryUpdateWeight  extends Component {
+  renderRow(tx) {
+    let msg = tx.tx.value.msg;
     return (
-      <TableRow key={reporter.address}>
-        <TableCell>{reporter.address}</TableCell>
-        <TableCell>{reporter.properties.join(",")}</TableCell>
+      <TableRow key={tx.hash}>
+        <TableCell>{msg.value.properties[0].number_value} Kg</TableCell>
+        <TableCell>{msg.value.sender}</TableCell>
       </TableRow>
     )
   }
 
   render() {
-    const { classes, reporters, onAddReporter } = this.props;
+    const { classes, txs } = this.props;
     return (
       <Paper className={classes.root}>
-        <AddReporter onSubmit={onAddReporter}/>
+        <UpdateWeightForm onSubmit={this.props.onUpdateProperties}/>
         <Table className={classes.table}>
           <TableHead>
             <TableRow>
+              <TableCell>Value</TableCell>
               <TableCell>Reporter</TableCell>
-              <TableCell>Properties</TableCell>
+              <TableCell>Created</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {reporters ? reporters.map(this.renderRow): (
+            {txs ? txs.map(this.renderRow): (
               <TableRow>
-                  <TableCell>No reporters found</TableCell>
+                  <TableCell>No txs found</TableCell>
                 </TableRow>
             )}
           </TableBody>
@@ -61,4 +61,4 @@ class Reporters extends Component {
 
 export default withStyles(
   styles,
-)(Reporters);
+)(HistoryUpdateWeight);

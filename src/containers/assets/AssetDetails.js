@@ -3,8 +3,8 @@ import { Paper, Typography } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import HistoryUpdate from './HistoryUpdate';
 import Materials from './Materials';
-import TransferForm from './TransferForm';
 import Reporters from './Reporters';
+import { Link } from "react-router-dom";
 const styles = theme => ({
   container: theme.mixins.gutters({
     paddingTop: 16,
@@ -23,7 +23,7 @@ class AssetDetails extends Component {
 
   renderLocation(location) {
     if (location) {
-      return (<span>{location.latitude - location.longitude }</span>)
+      return (<span>{location.latitude } - {location.longitude}</span>)
     }
   }
 
@@ -38,7 +38,7 @@ class AssetDetails extends Component {
           </Typography>
 
           <Typography component="p">
-            <b>Owner </b> : {asset.owner}
+            <b>Owner </b> : <Link to={`/assets/${asset.id}/history/transfer`}>{asset.owner}</Link>
           </Typography>
 
           <Typography component="p">
@@ -54,18 +54,15 @@ class AssetDetails extends Component {
           </Typography>
 
           <Typography component="p">
-            <b>Asset Quantity </b> : {asset.quantity}
+            <b>Asset Quantity </b> : <Link to={`/assets/${asset.id}/history/quantity`}>{asset.quantity}</Link>
           </Typography>
 
           <Typography component="p">
-            <b>Weight </b> : {asset.weight}
+            <b>Weight </b> : <Link to={`/assets/${asset.id}/history/weight`}>{asset.weight}</Link>
           </Typography>
           <Typography component="p">
-            <b>Location </b> : {this.renderLocation(asset.location)}
+            <b>Location </b> : <Link to={`/assets/${asset.id}/history/location`}> {this.renderLocation(asset.location)}</Link>
           </Typography>
-
-
-          <TransferForm/>
         </Paper>
 
         <h2>Materials</h2> 
@@ -77,9 +74,6 @@ class AssetDetails extends Component {
         <Reporters 
           onAddReporter={this.props.onAddReporter}
           reporters={asset.reporters}/>
-
-        <h2>History update</h2> 
-        <HistoryUpdate items={history}/>
       </div>
     );
   }

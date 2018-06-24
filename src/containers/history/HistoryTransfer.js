@@ -6,7 +6,8 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import AddReporter from './AddReporter';
+import TransferForm from '../assets/TransferForm';
+
 const styles = theme => ({
   container: theme.mixins.gutters({
     paddingTop: 16,
@@ -21,35 +22,35 @@ const styles = theme => ({
   }
 });
 
-class Reporters extends Component {
-
-
-
-  renderRow(reporter) {
+class HistoryTransfer  extends Component {
+  renderRow(tx) {
+    let msg = tx.tx.value.msg;
     return (
-      <TableRow key={reporter.address}>
-        <TableCell>{reporter.address}</TableCell>
-        <TableCell>{reporter.properties.join(",")}</TableCell>
+      <TableRow key={tx.hash}>
+        <TableCell>{tx.hash}</TableCell>
+        <TableCell>{msg.value.sender}</TableCell>
+         <TableCell>{msg.value.recipient}</TableCell>
       </TableRow>
     )
   }
 
   render() {
-    const { classes, reporters, onAddReporter } = this.props;
+    const { classes, txs, onTransfer } = this.props;
     return (
       <Paper className={classes.root}>
-        <AddReporter onSubmit={onAddReporter}/>
+        <TransferForm onSubmit={onTransfer}/>
         <Table className={classes.table}>
           <TableHead>
             <TableRow>
-              <TableCell>Reporter</TableCell>
-              <TableCell>Properties</TableCell>
+              <TableCell>Hash</TableCell>
+              <TableCell>From</TableCell>
+              <TableCell>To</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {reporters ? reporters.map(this.renderRow): (
+            {txs ? txs.map(this.renderRow): (
               <TableRow>
-                  <TableCell>No reporters found</TableCell>
+                  <TableCell>No txs found</TableCell>
                 </TableRow>
             )}
           </TableBody>
@@ -61,4 +62,4 @@ class Reporters extends Component {
 
 export default withStyles(
   styles,
-)(Reporters);
+)(HistoryTransfer);

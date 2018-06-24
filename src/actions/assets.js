@@ -12,10 +12,11 @@ export const createAsset = (data) => (dispatch) => {
 }
 
 
-export const updateProperties = (data) => (dispatch) => {
+export const updateProperties = (assetid, data) => (dispatch) => {
   dispatch({type: ACTION_TYPES.UPDATE_PROPERTIES})
-  node.updateProperties(data)
+  node.updateProperties(assetid, data)
     .then(payload => dispatch({type: ACTION_TYPES.UPDATE_PROPERTIES_SUCCESS, payload}))
+    .then(() => queryHistoryUpdate(assetid)(dispatch))
     .catch(payload => dispatch({type:ACTION_TYPES.UPDATE_PROPERTIES_ERROR, payload}));
 }
 
@@ -41,9 +42,9 @@ export const queryHistoryUpdate = (data) => (dispatch) => {
 }
 
 
-export const transferAsset = (data) => (dispatch) => {
+export const transferAsset = (recipient, data) => (dispatch) => {
   dispatch({type: ACTION_TYPES.TRANSFER_ASSET})
-  node.transferAsset(data)
+  node.transferAsset(recipient, data)
     .then(payload => dispatch({type: ACTION_TYPES.TRANSFER_ASSET_SUCCESS, payload}))
     .catch(payload => dispatch({type:ACTION_TYPES.TRANSFER_ASSET_ERROR, payload}));
 }

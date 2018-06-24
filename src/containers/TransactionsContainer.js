@@ -12,7 +12,9 @@ function mapStateToProps(state) {
 
 class TransactionsContainer extends Component {
   componentDidMount(){
-    this.props.getTxs(this.props.addr)
+    if (this.props.txs.length ===0) {
+      this.props.getTxs(this.props.addr)
+    }
   }
   render() {
     return (

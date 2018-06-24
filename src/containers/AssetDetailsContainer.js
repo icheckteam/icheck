@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import AssetDetails from './assets/AssetDetails';
-import { queryHistoryUpdate, updateProperties, addMaterials, queryAccountAssets, createReporter, revokeReporter } from '../actions/assets'
-import { getAsset } from '../reducers/assets'
+import { queryHistoryUpdate, addMaterials, queryAccountAssets, createReporter, revokeReporter, getAsset} from '../actions/assets'
 function mapStateToProps(state) {
   return {
     auth: state.auth,
-    assets: state.assets,
+    asset: state.asset.asset,
     history: state.history.history,
   };
 }
@@ -14,7 +13,7 @@ function mapStateToProps(state) {
 class AssetDetailsContainer extends Component {
 
   componentDidMount() {
-    this.props.queryAccountAssets(this.props.auth.addr)
+    this.props.getAsset(this.props.match.params.id)
   }
 
   onAddMaterial = (materials) =>  {
@@ -38,9 +37,7 @@ class AssetDetailsContainer extends Component {
   }
 
   render() {
-    const { assets, match} = this.props;
-    const asset = getAsset(assets, match.params.id)
-
+    const { asset} = this.props;
     return (
       <div>
         {asset ? (
@@ -61,5 +58,5 @@ class AssetDetailsContainer extends Component {
 
 export default connect(
   mapStateToProps,
-  {queryHistoryUpdate, queryAccountAssets, addMaterials, createReporter, revokeReporter},
+  {queryHistoryUpdate, queryAccountAssets, addMaterials, createReporter, revokeReporter, getAsset},
 )(AssetDetailsContainer);

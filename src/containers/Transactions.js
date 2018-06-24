@@ -39,6 +39,40 @@ class Transactions extends Component {
           </div>
         );
       break;
+      case '241AA14E79D880':
+        type = "Add material";
+        data = (
+          <div>
+            {msg.value.materials.map(material => {
+              return (<span key={material.asset_id}> From: {material.asset_id} To: {msg.value.asset_id} </span>)
+            })}
+          </div>
+        );
+        break;
+      case 'E9CB1A251E18F0':
+        type = "Add Reporter";
+        data = (
+          <div>
+            Reporter {msg.value.reporter} for asset {msg.value.asset_id}
+          </div>
+        );
+        break;
+      case '304553E545EF80':
+      type = "Transfer asset";
+      data = (
+        <div>
+          Transfer {msg.value.assets.join(",")} From: {msg.value.sender} To: {msg.value.recipient}
+        </div>
+      );
+      break;
+      case '06F6C30F9E7CF0':
+      type = "Update properties";
+      data = (
+        <div>
+          Asset ID : {msg.value.asset_id}
+        </div>
+      );
+      break;
       default:
       break;
     }
@@ -64,7 +98,7 @@ class Transactions extends Component {
             <TableRow>
               <TableCell>Hash</TableCell>
               <TableCell>Height</TableCell>
-              <TableCell>Type</TableCell>
+              <TableCell>Action</TableCell>
               <TableCell>Data</TableCell>
               <TableCell>Gas</TableCell>
               <TableCell>Fee</TableCell>
