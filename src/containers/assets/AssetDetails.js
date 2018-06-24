@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import { Paper, Typography } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import HistoryUpdate from './HistoryUpdate';
+import Materials from './Materials';
+import TransferForm from './TransferForm';
+import Reporters from './Reporters';
 const styles = theme => ({
   container: theme.mixins.gutters({
     paddingTop: 16,
@@ -35,6 +38,10 @@ class AssetDetails extends Component {
           </Typography>
 
           <Typography component="p">
+            <b>Owner </b> : {asset.owner}
+          </Typography>
+
+          <Typography component="p">
             <b>Asset Name </b> : {asset.name}
           </Typography>
 
@@ -56,8 +63,22 @@ class AssetDetails extends Component {
           <Typography component="p">
             <b>Location </b> : {this.renderLocation(asset.location)}
           </Typography>
+
+
+          <TransferForm/>
         </Paper>
-        <h2>History update</h2>
+
+        <h2>Materials</h2> 
+        <Materials 
+          onAddMaterial={this.props.onAddMaterial} 
+          materials={asset.materials}/>
+
+        <h2>Reporters</h2> 
+        <Reporters 
+          onAddReporter={this.props.onAddReporter}
+          reporters={asset.reporters}/>
+
+        <h2>History update</h2> 
         <HistoryUpdate items={history}/>
       </div>
     );

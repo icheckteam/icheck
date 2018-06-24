@@ -48,25 +48,25 @@ export const transferAsset = (data) => (dispatch) => {
     .catch(payload => dispatch({type:ACTION_TYPES.TRANSFER_ASSET_ERROR, payload}));
 }
 
-export const addMaterials = (data) => (dispatch) => {
+export const addMaterials = (assetId, data) => (dispatch) => {
   dispatch({type: ACTION_TYPES.ADD_MATERIALS})
-  node.addMaterials(data)
+  node.addMaterials(assetId, data)
     .then(payload => dispatch({type: ACTION_TYPES.ADD_MATERIALS_SUCCESS, payload}))
     .catch(payload => dispatch({type:ACTION_TYPES.ADD_MATERIALS_ERROR, payload}));
 }
 
-export const createReporter = (data) => (dispatch) => {
+export const createReporter = (assetid,data) => (dispatch) => {
   dispatch({type: ACTION_TYPES.CREATE_REPORTER})
-  node.createReporter(data)
+  node.createReporter(assetid, data)
     .then(payload => dispatch({type: ACTION_TYPES.CREATE_REPORTER_SUCCESS, payload}))
     .catch(payload => dispatch({type:ACTION_TYPES.CREATE_REPORTER_ERROR, payload}));
 }
 
 
 
-export const revokeReporter = (data) => (dispatch) => {
+export const revokeReporter = (assetid, reporter, data) => (dispatch) => {
   dispatch({type: ACTION_TYPES.REVOKE_REPORTER})
-  node.revokeReporter(data)
+  node.revokeReporter(assetid, reporter, data)
     .then(payload => dispatch({type: ACTION_TYPES.REVOKE_REPORTER_SUCCESS, payload}))
     .catch(payload => dispatch({type:ACTION_TYPES.REVOKE_REPORTER_ERROR, payload}));
 }

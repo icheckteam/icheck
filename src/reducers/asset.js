@@ -16,17 +16,17 @@ export default (state = initialState, action) => {
 
       if (asset.properties) {
         for (let prop of asset.properties) {
-          if (prop.name == "type") {
+          if (prop.name === "type") {
             asset.type = prop.string_value;
           }
-          if (prop.name == "subtype") {
+          if (prop.name === "subtype") {
             asset.subtype = prop.string_value;
           }
-          if (prop.name == "weight") {
+          if (prop.name === "weight") {
             asset.weight = prop.number_value;
           }
 
-          if (prop.name == "location") {
+          if (prop.name === "location") {
             asset.location = {
               latitude: Number(prop.location_value.latitude),
               longitude: Number(prop.location_value.longitude),

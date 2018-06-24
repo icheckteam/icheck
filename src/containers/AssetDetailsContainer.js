@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import AssetDetails from './assets/AssetDetails';
-import { getAsset, queryHistoryUpdate, updateProperties } from '../actions/assets'
+import { queryHistoryUpdate, updateProperties, addMaterials, queryAccountAssets, createReporter, revokeReporter } from '../actions/assets'
+import { getAsset } from '../reducers/assets'
 function mapStateToProps(state) {
   return {
-    asset: state.asset.asset,
+    auth: state.auth,
+    assets: state.assets,
     history: state.history.history,
   };
 }
@@ -12,18 +14,43 @@ function mapStateToProps(state) {
 class AssetDetailsContainer extends Component {
 
   componentDidMount() {
-    this.props.getAsset(this.props.match.params.id)
-    this.props.queryHistoryUpdate(this.props.match.params.id)
+    this.props.queryAccountAssets(this.props.auth.addr)
+  }
+
+  onAddMaterial = (materials) =>  {
+    this.props.addMaterials(this.props.match.params.id, {
+      ...this.props.auth.config,
+      materials: materials,
+    })
+  }
+
+  onCreateReporter = (data) =>  {
+    this.props.createReporter(this.props.match.params.id, {
+      ...this.props.auth.config,
+      ...data,
+    })
+  }
+
+  onRevokeReporter = (reporter) =>  {
+    this.props.revokeReporter(this.props.match.params.id, reporter, {
+      ...this.props.auth.config,
+    })
   }
 
   render() {
+    const { assets, match} = this.props;
+    const asset = getAsset(assets, match.params.id)
+
     return (
       <div>
-        {this.props.asset ? (
+        {asset ? (
           <div>
             <AssetDetails
+              onAddReporter={this.onCreateReporter}
+              onRevokeReporter={this.onRevokeReporter}
+              onAddMaterial={this.onAddMaterial}
               history={this.props.history}
-              asset={this.props.asset}
+              asset={asset}
             />
           </div>
         ): "Asset not found"}
@@ -34,5 +61,5 @@ class AssetDetailsContainer extends Component {
 
 export default connect(
   mapStateToProps,
-  { getAsset, queryHistoryUpdate, updateProperties},
+  {queryHistoryUpdate, queryAccountAssets, addMaterials, createReporter, revokeReporter},
 )(AssetDetailsContainer);

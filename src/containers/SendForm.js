@@ -87,7 +87,7 @@ class SendForm extends Component {
           onChange={this.handleChange('memo')}
           margin="normal"
         />
-         <Button variant="raised" color="primary" type="submit" className={classes.button} onClick={this.handleSubmit()}>
+        <Button variant="raised" color="primary" type="submit" className={classes.button} onClick={this.handleSubmit()}>
           Send
         </Button>
       </form>

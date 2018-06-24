@@ -39,6 +39,20 @@ class Client {
     return this.request("GET", `/assets/${assetId}`)
   }
 
+  addMaterials(assetId, data) {
+    return this.request("POST", `/assets/${assetId}/materials`, data)
+  }
+
+  createReporter(assetId, data) {
+    return this.request("POST", `/assets/${assetId}/reporters`, data)
+  }
+
+  revokeReporter(assetId, reporter, data) {
+    return this.request("POST", `/assets/${assetId}/reporters/${reporter}/revoke`, data)
+  }
+
+
+
   txs(addr) {
     return Promise.all([
       this.request("GET", `/txs?tag=sender_bech32='${addr}'`),
