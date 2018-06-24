@@ -11,6 +11,7 @@ export const ROUTES = {
   OPEN_WALLET: "/open-wallet",
   NEW_WALLET: "/new-wallet",
   DOWLOAD_WALLET_ACCOUNT: '/download-wallet-account',
+  TRANSACTIONS: "/transactions"
 }
 
 
@@ -86,7 +87,11 @@ export const ACTION_TYPES  = {
 
   SEND: "SEND",
   SEND_SUCCESS: "SEND_SUCCESS",
-  SEND_ERROR: "SEND_ERROR"
+  SEND_ERROR: "SEND_ERROR",
+
+  LOAD_TXS: "SEND",
+  LOAD_TXS_SUCCESS: "SEND_SUCCESS",
+  LOAD_TXS_ERROR: "LOAD_TXS_ERROR"
 }
 
 

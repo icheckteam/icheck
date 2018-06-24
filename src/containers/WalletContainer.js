@@ -4,6 +4,7 @@ import { withStyles } from '@material-ui/core/styles';
 import { Paper } from '@material-ui/core';
 import SendForm from './SendForm';
 import { send } from '../actions/accounts';
+import TransactionsContainer from './TransactionsContainer';
 
 const styles = theme => ({
   paper: theme.mixins.gutters({
@@ -46,8 +47,9 @@ class WalletContainer extends Component {
             onSubmit={this.handleSubmit()}
             coins={auth.coins}
           />
-
         </Paper>
+
+        <TransactionsContainer/>
       </div>
     );
   }

@@ -5,7 +5,10 @@ import axios from 'axios'
 
 class Client {
   constructor(server = "http://localhost:1317") {
-    this.server = server
+    this.api = axios.create({
+      baseURL: server,
+      timeout: 5000
+    })
   }
 
    // meta
@@ -14,11 +17,11 @@ class Client {
   }
 
   request(method, path, data) {
-    return axios[method.toLowerCase()](this.server + path, data).then(res => res.data);
+    return this.api[method.toLowerCase()](path, data).then(res => res.data);
   }
 
   send(recipient, data) {
-    return this.request("GET", `/accounts/${recipient}/send`, data)
+    return this.request("POST", `/accounts/${recipient}/send`, data)
   }
 
   queryAccount(address) {
@@ -31,6 +34,14 @@ class Client {
   }
   getAccountAssets(account) {
     return this.request("GET", `/accounts/${account}/assets`)
+  }
+
+
+  txs(addr) {
+    return Promise.all([
+      this.request("GET", `/txs?tag=sender_bech32='${addr}'`),
+      this.request("GET", `/txs?tag=recipient_bech32='${addr}'`),
+    ]).then(([senderTxs, recipientTxs]) => [].concat(senderTxs, recipientTxs));
   }
 }
 

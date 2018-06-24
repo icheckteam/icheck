@@ -15,6 +15,7 @@ import IdentityContainer from './containers/IdentityContainer';
 import OpenWalletContainer from './containers/OpenWalletContainer';
 import NewWalletContainer from './containers/NewWalletContainer';
 import DownloadWalletContainer from './containers/DownloadWalletContainer';
+import TransactionsContainer from './containers/TransactionsContainer';
 
 export const Routes = () => {
   return(
@@ -32,6 +33,7 @@ export const Routes = () => {
         <Route path={ROUTES.OPEN_WALLET} component={OpenWalletContainer} />
         <Route path={ROUTES.NEW_WALLET} component={NewWalletContainer} />
         <Route path={ROUTES.DOWLOAD_WALLET_ACCOUNT} component={DownloadWalletContainer} />
+        <Route path={ROUTES.TRANSACTIONS} component={TransactionsContainer} />
       </div>
     </App>
   )

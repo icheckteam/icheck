@@ -67,3 +67,10 @@ export const send = (recipient, data) => (dispatch) => {
     .then(payload => dispatch({type: ACTION_TYPES.SEND_SUCCESS, payload}))
     .catch(payload => dispatch({type: ACTION_TYPES.SEND_ERROR, payload}))
 };
+
+export const getTxs = (addr) => (dispatch) => {
+  dispatch({type: ACTION_TYPES.LOAD_TXS})
+  node.txs(addr)
+    .then(payload => dispatch({type: ACTION_TYPES.LOAD_TXS_SUCCESS, payload}))
+    .catch(payload => dispatch({type: ACTION_TYPES.LOAD_TXS_ERROR, payload}))
+};

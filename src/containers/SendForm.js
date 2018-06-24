@@ -33,7 +33,7 @@ class SendForm extends Component {
       recipient: this.state.recipient,
       memo: this.state.memo,
       amount: [
-        { denom: this.state.denom, amount: this.state.amount}
+        { denom: this.state.denom, amount: Number(this.state.amount)}
       ]
     })
   };
