@@ -36,8 +36,8 @@ export const subtractQuantity = (data) => (dispatch) => {
 export const queryHistoryUpdate = (data) => (dispatch) => {
   dispatch({type: ACTION_TYPES.LOAD_HISTORY_UPDATE})
   node.queryHistoryUpdate(data)
-    .then(payload => dispatch({type: ACTION_TYPES.LOAD_HISTORY_UPDATE_SUCCESS, payload}))
-    .catch(payload => dispatch({type:ACTION_TYPES.LOAD_HISTORY_UPDATE_ERROR, payload}));
+    .then(history => dispatch({type: ACTION_TYPES.LOAD_HISTORY_UPDATE_SUCCESS, history}))
+    .catch(error => dispatch({type:ACTION_TYPES.LOAD_HISTORY_UPDATE_ERROR, error}));
 }
 
 
@@ -77,4 +77,12 @@ export const queryAccountAssets = (account) => (dispatch) => {
   node.getAccountAssets(account)
     .then(payload => dispatch({type: ACTION_TYPES.LOAD_ASSETS_SUCCESS, payload: payload}))
     .catch(payload => dispatch({type:ACTION_TYPES.LOAD_ASSET_ERROR, payload}));
+}
+
+
+export const getAsset = (assetId) => (dispatch) => {
+  dispatch({type: ACTION_TYPES.LOAD_ASSET})
+  node.getAsset(assetId)
+    .then(asset => dispatch({type: ACTION_TYPES.LOAD_ASSET_SUCCESS, asset}))
+    .catch(error => dispatch({type:ACTION_TYPES.LOAD_ASSET_ERROR, error}));
 }

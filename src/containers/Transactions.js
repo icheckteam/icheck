@@ -12,7 +12,7 @@ class Transactions extends Component {
     switch(msg.type) {
       // sendCoin 
       case 'EAFDE32A2C87F8':
-        type = "send";
+        type = "Send Token";
         data = (
           <div>
             {msg.value.outputs.map(output => {
@@ -29,6 +29,17 @@ class Transactions extends Component {
             })}
           </div>
         );
+      break;
+      // create asset
+      case '8E4151824E2B80':
+        type = "Create Asset";
+        data = (
+          <div>
+            ID: {msg.value.asset_id},  Name: {msg.value.name}, Quantity: {msg.value.quantity}
+          </div>
+        );
+      break;
+      default:
       break;
     }
 

@@ -15,9 +15,7 @@ const styles = theme => ({
   container: {
 
   },
-  createAssetForm: {
-    maxWidth: "300px"
-  }
+
 });
 
 

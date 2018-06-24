@@ -7,7 +7,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-
+import { Link } from "react-router-dom";
 const styles = theme => ({
   root: {
     width: '100%',
@@ -20,7 +20,7 @@ const styles = theme => ({
 });
 
 function Assets(props) {
-  const { classes, assets } = props;
+  const { classes, items } = props;
 
   return (
     <Paper className={classes.root}>
@@ -28,24 +28,26 @@ function Assets(props) {
         <TableHead>
           <TableRow>
             <TableCell>ID</TableCell>
+            <TableCell>Height</TableCell>
             <TableCell>Name</TableCell>
             <TableCell>Quantity</TableCell>
-            <TableCell>Height</TableCell>
+            <TableCell>Created</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {assets ? assets.map(asset => {
+          {items ? items.map(item => {
             return (
-              <TableRow>
-                <TableCell>{asset.id}</TableCell>
-                <TableCell>{asset.name}</TableCell>
-                <TableCell>{asset.quantity}</TableCell>
-                <TableCell>{asset.height}</TableCell>
+              <TableRow key={item.id}>
+                <TableCell><Link to={"/asset-details/" + item.id}>{item.id}</Link></TableCell>
+                <TableCell>{item.height}</TableCell>
+                <TableCell>{item.name}</TableCell>
+                <TableCell>{item.quantity}</TableCell>
+                <TableCell>{item.created}</TableCell>
               </TableRow>
             )
           }): (
              <TableRow>
-                <TableCell>Create asset</TableCell>
+                <TableCell>No assets found</TableCell>
               </TableRow>
           )}
         </TableBody>

@@ -35,13 +35,20 @@ class Client {
   getAccountAssets(account) {
     return this.request("GET", `/accounts/${account}/assets`)
   }
-
+  getAsset(assetId) {
+    return this.request("GET", `/assets/${assetId}`)
+  }
 
   txs(addr) {
     return Promise.all([
       this.request("GET", `/txs?tag=sender_bech32='${addr}'`),
       this.request("GET", `/txs?tag=recipient_bech32='${addr}'`),
     ]).then(([senderTxs, recipientTxs]) => [].concat(senderTxs, recipientTxs));
+  }
+
+
+  queryHistoryUpdate(assetId) {
+    return this.request("GET", `/txs?tag=asset_id='${assetId}'`)
   }
 }
 

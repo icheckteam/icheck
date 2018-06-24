@@ -6,10 +6,6 @@ import { Link } from "react-router-dom";
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import WalletIcon from '@material-ui/icons/AccountBalanceWallet';
 import AssetIcon from '@material-ui/icons/WebAsset';
-import MarketIcon from '@material-ui/icons/StoreMallDirectory';
-import ShippingIcon from '@material-ui/icons/LocalShipping';
-import InvoiceIcon from '@material-ui/icons/InsertDriveFile';
-import IdentityIcon from '@material-ui/icons/PermIdentity';
 import { ROUTES } from '../../common/constants';
 
 
@@ -23,44 +19,12 @@ export const menuListItems = (
         <ListItemText primary="Wallet" />
       </ListItem>
     </Link>
-    <Link to={ROUTES.IDENTITY}>
-      <ListItem button>
-        <ListItemIcon>
-          <IdentityIcon />
-        </ListItemIcon>
-        <ListItemText primary="Identity" />
-      </ListItem>
-    </Link>
     <Link to={ROUTES.ASSETS}>
       <ListItem button>
         <ListItemIcon>
           <AssetIcon />
         </ListItemIcon>
         <ListItemText primary="Asset" />
-      </ListItem>
-    </Link>
-    <Link to={ROUTES.MARKET}>
-      <ListItem button>
-        <ListItemIcon>
-          <MarketIcon />
-        </ListItemIcon>
-        <ListItemText primary="Market" />
-      </ListItem>
-    </Link>
-    <Link to={ROUTES.SHIPPING}>
-      <ListItem button>
-        <ListItemIcon>
-          <ShippingIcon />
-        </ListItemIcon>
-        <ListItemText primary="Shipping" />
-      </ListItem>
-    </Link>
-    <Link to={ROUTES.INVOICES}>
-      <ListItem button>
-        <ListItemIcon>
-          <InvoiceIcon />
-        </ListItemIcon>
-        <ListItemText primary="Invoices" />
       </ListItem>
     </Link>
   </div>

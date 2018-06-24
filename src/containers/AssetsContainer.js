@@ -5,14 +5,14 @@ import { Link } from 'react-router-dom'
 import Assets from './assets/Assets';
 import { ROUTES } from '../common/constants';
 import { queryAccountAssets } from '../actions/assets';
-
+import { getVisibleAssets } from '../reducers/assets'
 
 
 
 
 function mapStateToProps(state) {
   return {
-    assets: state.assets.assets,
+    assets: getVisibleAssets(state.assets),
     addr: state.auth.addr
   };
 }
