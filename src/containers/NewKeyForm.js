@@ -7,7 +7,7 @@ const styles = theme => ({
   container: {
   },
   textField: {
-    minWidth: 200
+    minWidth: 250
   },
   button: {
 
@@ -18,7 +18,6 @@ class NewKeyForm extends Component {
   state = {
     name: "",
     password: "",
-    seed: "",
   }
 
   handleChange = name => event => {
@@ -33,7 +32,7 @@ class NewKeyForm extends Component {
 
 
   render() {
-    const { classes, coins  } = this.props
+    const { classes  } = this.props
     return (
       <form className={classes.container} noValidate autoComplete="off">
         <TextField
@@ -61,20 +60,21 @@ class NewKeyForm extends Component {
 
         <TextField
           id="memo"
-          label="Memo"
-          multiline=""
-          disabled={true}
+          multiline={true}
           className={classes.textField}
           value={this.props.seed}
+          disabled={true}
+          rows={6}
           margin="normal"
         />
+        <p>Backup your seed to import</p>
         <br />
         <Button variant="raised" color="primary" type="submit" className={classes.button} onClick={this.handleSubmit()}>
           Create new key
         </Button>
 
         <br/>
-        <Link to="/login">Login?</Link>
+        <Link to="/login">Login?</Link> - <Link to="/import-key">Import ?</Link>
       </form>
     );
   }

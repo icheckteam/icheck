@@ -18,6 +18,14 @@ export default (state = initialState, action) => {
     case ACTION_TYPES.HIDE_NOTIFICATION: {
       return { ...state, open: false }
     }
+
+    case ACTION_TYPES.UNLOCK_ERROR:
+      return {
+        content: "Your password is incorrect",
+        title: "Unlock error",
+        open: true,
+      }
+
     default:
       return state
   }

@@ -7,17 +7,18 @@ const styles = theme => ({
   container: {
   },
   textField: {
-    minWidth: 200
+    minWidth: 250
   },
   button: {
 
   }
 });
 
-class LoginForm extends Component {
+class NewKeyForm extends Component {
   state = {
     name: "",
     password: "",
+    seed: "",
   }
 
   handleChange = name => event => {
@@ -58,15 +59,29 @@ class LoginForm extends Component {
 
         <br />
 
+        <TextField
+          id="seed"
+          label="Seed"
+          rows={6}
+          multiline={true}
+          className={classes.textField}
+          value={this.state.seed}
+          onChange={this.handleChange('seed')}
+          margin="normal"
+        />
+
+
+         <br />
+
         <Button variant="raised" color="primary" type="submit" className={classes.button} onClick={this.handleSubmit()}>
-          Login
+          Import
         </Button>
 
         <br/>
-        <Link to="/register">Create new key?</Link> - <Link to="/import-key">Import ?</Link>
+        <Link to="/login">Login?</Link>  <Link to="/register">Create new key?</Link>
       </form>
     );
   }
 }
 
-export default withStyles(styles)(LoginForm)
+export default withStyles(styles)(NewKeyForm)

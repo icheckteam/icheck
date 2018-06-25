@@ -20,6 +20,7 @@ import AssetDetailsContainer from './containers/AssetDetailsContainer';
 import HistoryUpdateContainer from './containers/HistoryUpdateContainer';
 import LoginContainer from './containers/LoginContainer';
 import NewKeyContainer from './containers/NewKeyContainer';
+import ImportKeyContainer from './containers/ImportKeyContainer';
 export const Routes = () => {
   return(
     <App>
@@ -41,6 +42,7 @@ export const Routes = () => {
         <Route path="/assets/:id/history/:name" component={HistoryUpdateContainer} />
         <Route path="/login" component={LoginContainer} />
         <Route path="/register" component={NewKeyContainer} />
+        <Route path="/import-key" component={ImportKeyContainer} />
       </div>
     </App>
   )

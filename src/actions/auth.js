@@ -1,16 +1,20 @@
-import { getAccount } from "./accounts";
+import { getAccount, getTxs } from "./accounts";
 import { ACTION_TYPES } from "../common/constants";
 import node from '../node'
+import { queryAccountAssets } from "./assets";
 
 export const getKey = (name) => (dispatch) => {
   dispatch({type: ACTION_TYPES.LOAD_KEY})
   return node.getKey(name)
     .then(key => {
       dispatch({type: ACTION_TYPES.LOAD_KEY_SUCCESS, key});
-      getAccount(key.address)(dispatch)
+      restore(key)(dispatch)
+      localStorage.setItem("auth", JSON.stringify(key))
     })
     .catch(error => dispatch({type:ACTION_TYPES.LOAD_KEY, error}));
 }
+
+
 
 const testLogin = (data) => {
   return node.updateKey({
@@ -29,11 +33,50 @@ export const login = (data) => (dispatch) => {
 }
 
 
+export const unlock = (data) => (dispatch) => {
+  dispatch({type: ACTION_TYPES.UNLOCK});
+  return testLogin(data).then(() => {
+    dispatch({type: ACTION_TYPES.UNLOCK_SUCCESS, payload: data});
+  }).catch(error => dispatch({type: ACTION_TYPES.UNLOCK_ERROR, error}));
+}
+
 export const createKey = (data) => (dispatch) => {
   dispatch({type: ACTION_TYPES.CREATE_KEY})
   node.storeKey(data)
     .then(asset => dispatch({type: ACTION_TYPES.CREATE_KEY_SUCCESS, asset}))
-    .then(() => getKey(data.name)(dispatch))
+    .then(() => login(data)(dispatch))
     .catch(error => dispatch({type:ACTION_TYPES.CREATE_KEY_ERROR, error}));
+}
+
+
+
+export const restoreAccount = () => (dispatch) => {
+  var key = localStorage.getItem("auth")
+  if (key) {
+    key = JSON.parse(key);
+    restore(key)
+  }
+}
+
+const restore = (key) => (dispatch) => {
+  dispatch({type: ACTION_TYPES.LOAD_KEY_SUCCESS, key})
+  getAccount(key.address)(dispatch);
+  queryAccountAssets(key.address)(dispatch)
+  getTxs(key.address)(dispatch)
+}
+
+
+
+export const logout = () => (dispatch) => {
+  localStorage.removeItem("auth")
+  dispatch({type: ACTION_TYPES.LOGOUT_SUCCESS})
+}
+
+
+export const getSeed = () => (dispatch) => {
+  dispatch({type: ACTION_TYPES.LOAD_SEED})
+  node.generateSeed()
+    .then(seed => dispatch({type: ACTION_TYPES.LOAD_SEED_SUCCESS, seed}))
+    .catch(error => dispatch({type:ACTION_TYPES.LOAD_SEED_ERROR, error}));
 }
 

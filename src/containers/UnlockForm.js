@@ -2,21 +2,19 @@ import React, { Component } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import { Link } from "react-router-dom";
 const styles = theme => ({
   container: {
   },
   textField: {
-    minWidth: 200
+
   },
   button: {
 
   }
 });
 
-class LoginForm extends Component {
+class UnlockForm extends Component {
   state = {
-    name: "",
     password: "",
   }
 
@@ -27,7 +25,9 @@ class LoginForm extends Component {
 
   handleSubmit = () => (e) => {
     e.preventDefault()
-    this.props.onSubmit(this.state)
+    this.props.onSubmit({
+      password: this.state.password,
+    })
   };
 
 
@@ -35,17 +35,6 @@ class LoginForm extends Component {
     const { classes  } = this.props
     return (
       <form className={classes.container} noValidate autoComplete="off">
-        <TextField
-          id="name"
-          label="Username"
-          className={classes.textField}
-          value={this.state.name}
-          onChange={this.handleChange('name')}
-          margin="normal"
-        />
-
-        <br />
-
         <TextField
           id="password"
           label="Password"
@@ -55,18 +44,12 @@ class LoginForm extends Component {
           onChange={this.handleChange('password')}
           margin="normal"
         />
-
-        <br />
-
         <Button variant="raised" color="primary" type="submit" className={classes.button} onClick={this.handleSubmit()}>
-          Login
+          Unlock
         </Button>
-
-        <br/>
-        <Link to="/register">Create new key?</Link> - <Link to="/import-key">Import ?</Link>
       </form>
     );
   }
 }
 
-export default withStyles(styles)(LoginForm)
+export default withStyles(styles)(UnlockForm)

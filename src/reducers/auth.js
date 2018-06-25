@@ -35,7 +35,8 @@ export default (state = initialState, action) => {
           sequence: 0,
         }
       }
-    case ACTION_TYPES.LOGIN_SUCCESS: 
+    case ACTION_TYPES.LOGIN_SUCCESS:
+    case ACTION_TYPES.UNLOCK_SUCCESS:
       return {
         ...state,
         config: {
@@ -51,6 +52,25 @@ export default (state = initialState, action) => {
           ...state.config,
           sequence: state.config.sequence+1,
         }
+      }
+    case ACTION_TYPES.LOGOUT_SUCCESS:
+      return {
+        ...state,
+        addr: "",
+        pub_key: "",
+        seed: "",
+        config: {
+          ...state.config,
+          name: "",
+          password: "",
+          account_number: 0,
+          sequence: 0,
+        }
+      }
+    case ACTION_TYPES.LOAD_SEED_SUCCESS:
+      return {
+        ...state,
+        seed: action.seed,
       }
     default:
       return state

@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
-import { Paper } from '@material-ui/core';
+import { Paper, Button } from '@material-ui/core';
 import SendForm from './SendForm';
 import { send } from '../actions/accounts';
+import { unlock, logout } from '../actions/auth';
 import TransactionsContainer from './TransactionsContainer';
 import LoginContainer from './LoginContainer';
+import UnlockForm from './UnlockForm';
 
 const styles = theme => ({
   paper: theme.mixins.gutters({
@@ -32,6 +34,18 @@ class WalletContainer extends Component {
     });
   }
 
+  handleUnlock = (data) => {
+    const { auth} = this.props;
+    this.props.unlock({
+      name: auth.config.name,
+      password: data.password,
+    });
+  }
+
+  handleLogout = () => {
+    this.props.logout();
+  }
+
   render() {
     const { classes, auth} = this.props;
     return (
@@ -40,16 +54,32 @@ class WalletContainer extends Component {
           <div>
             <h1>Wallet management</h1>
             <Paper className={classes.paper}>
+              <Button variant="raised" color="primary" onClick={this.handleLogout}>
+                Logout
+              </Button> <br/>
+              <h3>Your address: {auth.addr}</h3>
+              <h3>Your tokens</h3>
               {auth.coins.map(coin => {
                 return (
-                  <p key={coin.denom}>{coin.amount} {coin.denom}</p>
+                  <b key={coin.denom}><p >{coin.amount} {coin.denom}</p></b>
                 )
               })}
+            </Paper>
+            
+            {!auth.config.password ? (
+              <div>
+                <h1>Unlock your account </h1>
+                <Paper className={classes.paper}>
+                  <UnlockForm onSubmit={this.handleUnlock}/>
+                </Paper>
+              </div>
+            ) : ""}
 
+            <h1>Send token</h1>
+            <Paper className={classes.paper}>
               <SendForm
                 onSubmit={this.handleSubmit()}
-                coins={auth.coins}
-              />
+                coins={auth.coins} />
             </Paper>
 
             <TransactionsContainer/>
@@ -64,5 +94,5 @@ class WalletContainer extends Component {
 
 export default withStyles(styles)(connect(
   mapStateToProps,
-  { send }
+  { send, unlock, logout}
 )(WalletContainer));

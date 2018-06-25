@@ -6,7 +6,7 @@ const styles = theme => ({
 });
 class Transactions extends Component {
 
-  renderRow(tx) {
+  renderRow(tx, index) {
     let type, data;
     let msg = tx.tx.value.msg;
     switch(msg.type) {
@@ -78,7 +78,7 @@ class Transactions extends Component {
     }
 
     return (
-      <TableRow key={tx.hash}>
+      <TableRow key={index}>
         <TableCell>{tx.hash}</TableCell>
         <TableCell>{tx.height}</TableCell>
         <TableCell>{type}</TableCell>
@@ -105,7 +105,7 @@ class Transactions extends Component {
             </TableRow>
           </TableHead>
           <TableBody>
-            {txs ? txs.map(tx => this.renderRow(tx)): (
+            {txs ? txs.map(this.renderRow): (
               <TableRow>
                   <TableCell>No transactions</TableCell>
                 </TableRow>

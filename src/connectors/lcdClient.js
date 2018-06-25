@@ -59,8 +59,8 @@ class Client {
     return this.request("GET", `/keys/seed`)
   }
 
-  storeKey() {
-    return this.request("POST", `/keys`)
+  storeKey(data) {
+    return this.request("POST", `/keys`, data)
   }
 
   getKey(name) {

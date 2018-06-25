@@ -38,6 +38,12 @@ class AssetDetailsContainer extends Component {
 
   render() {
     const { asset} = this.props;
+
+    // update asset
+    if (asset && asset.id !== this.props.match.params.id) {
+      this.props.getAsset(this.props.match.params.id)
+    }
+
     return (
       <div>
         {asset ? (
