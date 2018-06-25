@@ -1,8 +1,15 @@
 import React, { Component } from 'react';
 import { withStyles } from '@material-ui/core/styles';
-import { Paper, Table, TableHead, TableRow, TableCell, TableBody } from '@material-ui/core';
+import {  Table, TableHead, TableRow, TableCell, TableBody, Paper } from '@material-ui/core';
 const styles = theme => ({
-
+  root: {
+    width: '100%',
+    marginTop: theme.spacing.unit * 3,
+    overflowX: 'auto',
+  },
+  table: {
+    minWidth: 700,
+  },
 });
 class Transactions extends Component {
 
@@ -85,6 +92,7 @@ class Transactions extends Component {
         <TableCell>{data}</TableCell>
         <TableCell>{tx.result.gasUsed} gas</TableCell>
         <TableCell>0 tomato</TableCell>
+        <TableCell>{tx.time}</TableCell>
       </TableRow>
     )
   }
@@ -102,13 +110,14 @@ class Transactions extends Component {
               <TableCell>Data</TableCell>
               <TableCell>Gas</TableCell>
               <TableCell>Fee</TableCell>
+              <TableCell>Time</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {txs ? txs.map(this.renderRow): (
               <TableRow>
-                  <TableCell>No transactions</TableCell>
-                </TableRow>
+                <TableCell>No transactions</TableCell>
+              </TableRow>
             )}
           </TableBody>
         </Table>

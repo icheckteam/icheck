@@ -98,19 +98,22 @@ class CreateAssetFrom extends Component {
             value={this.state.id}
             onChange={this.handleChange('id')}
             margin="normal"
-          /> <br />
+            fullWidth={true}
+          /> 
           <TextField
             id="name"
             label="Name"
+            fullWidth={true}
             className={classes.textField}
             value={this.state.name}
             onChange={this.handleChange('name')}
             margin="normal"
-          /><br />
+          />
           <TextField
             id="quantity"
             label="Quantity"
             type="number"
+            fullWidth={true}
             className={classes.textField}
             value={this.state.quantity}
             onChange={this.handleChange('quantity')}
@@ -119,6 +122,7 @@ class CreateAssetFrom extends Component {
           <TextField
             id="type"
             label="Type"
+            fullWidth={true}
             className={classes.textField}
             value={this.state.type}
             onChange={this.handleChange('type')}
@@ -127,15 +131,16 @@ class CreateAssetFrom extends Component {
         <TextField
             id="subtype"
             label="Subtype"
+            fullWidth={true}
             className={classes.textField}
             value={this.state.subtype}
             onChange={this.handleChange('subtype')}
             margin="normal"
           />
-          <br />
           <TextField
             id="barcode"
             label="Barcode"
+            fullWidth={true}
             className={classes.textField}
             value={this.state.barcode}
             onChange={this.handleChange('barcode')}
@@ -150,8 +155,8 @@ class CreateAssetFrom extends Component {
             value={this.state.weight}
             onChange={this.handleChange('weight')}
             margin="normal"
+            fullWidth={true}
           />
-<br />
           <TextField
             id="latitude"
             label="Latitude"
@@ -159,6 +164,7 @@ class CreateAssetFrom extends Component {
             value={this.state.latitude}
             onChange={this.handleChange('latitude')}
             margin="normal"
+            fullWidth={true}
           />
 
           <TextField
@@ -168,8 +174,8 @@ class CreateAssetFrom extends Component {
             value={this.state.longitude}
             onChange={this.handleChange('longitude')}
             margin="normal"
+            fullWidth={true}
           />
-<br />
           <Button variant="raised" color="primary" type="submit" className={classes.button} onClick={this.handleSubmit()}>
             Submit
           </Button>

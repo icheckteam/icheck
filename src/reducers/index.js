@@ -8,6 +8,7 @@ import auth from './auth';
 import txs from './txs';
 import asset from './asset';
 import history from './history';
+import unlockDialog from './unlockdialog';
 const rootReducer = combineReducers({
   generateWallet,
   notification,
@@ -17,6 +18,7 @@ const rootReducer = combineReducers({
   txs,
   asset,
   history,
+  unlockDialog,
 })
 
 export default rootReducer

@@ -7,7 +7,8 @@ const styles = theme => ({
   container: {
   },
   textField: {
-
+    maxWidth: 500,
+    marginRight: 10
   },
   button: {
 
@@ -44,8 +45,10 @@ class SendForm extends Component {
     return (
       <form className={classes.container} noValidate autoComplete="off">
         <Select
+          fullWidth={true}
           value={this.state.denom}
           onChange={this.handleChange("denom")}
+          className={classes.textField}
           inputProps={{
             name: 'age',
             id: 'age-simple',
@@ -61,6 +64,7 @@ class SendForm extends Component {
         </Select>
 
         <TextField
+        fullWidth={true}
           id="recipient"
           label="Recipient"
           className={classes.textField}
@@ -70,6 +74,7 @@ class SendForm extends Component {
         />
 
         <TextField
+        fullWidth={true}
           id="amount"
           label="Amount"
           type="number"
@@ -80,6 +85,7 @@ class SendForm extends Component {
         />
 
         <TextField
+        fullWidth={true}
           id="memo"
           label="Memo"
           className={classes.textField}

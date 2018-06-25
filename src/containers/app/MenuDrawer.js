@@ -39,9 +39,13 @@ const styles = theme => ({
       position: 'relative',
     },
   },
-  content: {
+  main: {
     flexGrow: 1,
     backgroundColor: theme.palette.background.default,
+    width: '100%',
+    paddingTop: theme.spacing.unit * 5,
+  },
+  content: {
     padding: theme.spacing.unit * 3,
   },
 });
@@ -109,9 +113,10 @@ class MenuDrawer extends React.Component {
             {drawer}
           </Drawer>
         </Hidden>
-        <main className={classes.content}>
-          <div className={classes.toolbar} />
-          {this.props.children}
+        <main className={classes.main}>
+          <div className={classes.content}>
+            {this.props.children}
+          </div>
         </main>
       </div>
     );

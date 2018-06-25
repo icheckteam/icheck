@@ -29,7 +29,7 @@ export const login = (data) => (dispatch) => {
     getKey(data.name)(dispatch).then(() => {
       dispatch({type: ACTION_TYPES.LOGIN_SUCCESS, payload: data});
     })
-  }).catch(error => dispatch({type: ACTION_TYPES.LOGIN_SUCCESS, payload: data}));
+  }).catch(error => dispatch({type: ACTION_TYPES.LOGIN_ERROR, payload: data}));
 }
 
 
@@ -37,7 +37,7 @@ export const unlock = (data) => (dispatch) => {
   dispatch({type: ACTION_TYPES.UNLOCK});
   return testLogin(data).then(() => {
     dispatch({type: ACTION_TYPES.UNLOCK_SUCCESS, payload: data});
-  }).catch(error => dispatch({type: ACTION_TYPES.UNLOCK_ERROR, error}));
+  });
 }
 
 export const createKey = (data) => (dispatch) => {

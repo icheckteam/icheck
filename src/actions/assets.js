@@ -8,7 +8,6 @@ export const createAsset = (data) => (dispatch) => {
   dispatch({type: ACTION_TYPES.CREATE_ASSET})
   return node.createAsset(data)
     .then(payload => dispatch({type: ACTION_TYPES.CREATE_ASSET_SUCCESS, payload}))
-    .catch(payload => dispatch({type:ACTION_TYPES.CREATE_ASSET_ERROR, payload}));
 }
 
 

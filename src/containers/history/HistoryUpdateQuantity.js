@@ -8,11 +8,14 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 
 const styles = theme => ({
-  container: theme.mixins.gutters({
-    paddingTop: 16,
-    paddingBottom: 16,
+  root: {
+    width: '100%',
     marginTop: theme.spacing.unit * 3,
-  }),
+    overflowX: 'auto',
+  },
+  table: {
+    minWidth: 700,
+  },
   textField: {
     marginRight: 20,
   },
@@ -57,6 +60,7 @@ class HistoryUpdateQuantity extends Component {
         <TableCell>{type}</TableCell>
         <TableCell>{quantity}</TableCell>
         <TableCell>{data}</TableCell>
+        <TableCell>{tx.time}</TableCell>
       </TableRow>
     )
   }
@@ -72,6 +76,7 @@ class HistoryUpdateQuantity extends Component {
               <TableCell>Action</TableCell>
               <TableCell>Quantity</TableCell>
               <TableCell>Data</TableCell>
+              <TableCell>Time</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>

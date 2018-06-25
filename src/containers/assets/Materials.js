@@ -9,17 +9,17 @@ import TableRow from '@material-ui/core/TableRow';
 import AddMaterialForm from './AddMaterialForm';
 import { Link } from "react-router-dom";
 const styles = theme => ({
-  container: theme.mixins.gutters({
-    paddingTop: 16,
-    paddingBottom: 16,
+  root: {
+    width: '100%',
     marginTop: theme.spacing.unit * 3,
-  }),
+    overflowX: 'auto',
+  },
+  table: {
+    minWidth: 700,
+  },
   textField: {
     marginRight: 20,
   },
-  button: {
-
-  }
 });
 
 class Materials extends Component {

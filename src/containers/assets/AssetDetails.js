@@ -41,6 +41,14 @@ class AssetDetails extends Component {
           </Typography>
 
           <Typography component="p">
+            <b>Asset Root </b> : <Link to={`/assets/${asset.id}`}>{asset.root}</Link>
+          </Typography>
+
+          <Typography component="p">
+            <b>Asset Parent </b> : <Link to={`/assets/${asset.id}`}>{asset.parent}</Link>
+          </Typography>
+
+          <Typography component="p">
             <b>Asset Name </b> : {asset.name}
           </Typography>
 

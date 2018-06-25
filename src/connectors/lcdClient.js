@@ -4,10 +4,10 @@ import axios from 'axios'
 
 
 class Client {
-  constructor(server = "http://localhost:1317") {
+  constructor(server = "http://sandbox.icheck.com.vn:4396") {
     this.api = axios.create({
       baseURL: server,
-      timeout: 5000
+      timeout: 10000
     })
   }
 
@@ -17,7 +17,7 @@ class Client {
   }
 
   request(method, path, data) {
-    return this.api[method.toLowerCase()](path, data).then(res => res.data);
+    return this.api[method.toLowerCase()](path, data).then(res => res.data)
   }
 
   send(recipient, data) {

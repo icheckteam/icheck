@@ -8,17 +8,17 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import AddReporter from './AddReporter';
 const styles = theme => ({
-  container: theme.mixins.gutters({
-    paddingTop: 16,
-    paddingBottom: 16,
+  root: {
+    width: '100%',
     marginTop: theme.spacing.unit * 3,
-  }),
+    overflowX: 'auto',
+  },
+  table: {
+    minWidth: 700,
+  },
   textField: {
     marginRight: 20,
   },
-  button: {
-
-  }
 });
 
 class Reporters extends Component {

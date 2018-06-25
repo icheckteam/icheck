@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import AssetDetails from './assets/AssetDetails';
+import { showUnlockDialogIfNotPassword } from '../actions/unlockDialog';
 import { queryHistoryUpdate, addMaterials, queryAccountAssets, createReporter, revokeReporter, getAsset} from '../actions/assets'
 function mapStateToProps(state) {
   return {
@@ -17,23 +18,29 @@ class AssetDetailsContainer extends Component {
   }
 
   onAddMaterial = (materials) =>  {
-    this.props.addMaterials(this.props.match.params.id, {
-      ...this.props.auth.config,
-      materials: materials,
-    })
+    this.props.showUnlockDialogIfNotPassword(this.props.auth.config, () => {
+      this.props.addMaterials(this.props.match.params.id, {
+        ...this.props.auth.config,
+        materials: materials,
+      })
+    });
   }
 
   onCreateReporter = (data) =>  {
-    this.props.createReporter(this.props.match.params.id, {
-      ...this.props.auth.config,
-      ...data,
-    })
+    this.props.showUnlockDialogIfNotPassword(this.props.auth.config, () => {
+      this.props.createReporter(this.props.match.params.id, {
+        ...this.props.auth.config,
+        ...data,
+      })
+    });
   }
 
   onRevokeReporter = (reporter) =>  {
-    this.props.revokeReporter(this.props.match.params.id, reporter, {
-      ...this.props.auth.config,
-    })
+    this.props.showUnlockDialogIfNotPassword(this.props.auth.config, () => {
+      this.props.revokeReporter(this.props.match.params.id, reporter, {
+        ...this.props.auth.config,
+      })
+    });
   }
 
   render() {
@@ -64,5 +71,5 @@ class AssetDetailsContainer extends Component {
 
 export default connect(
   mapStateToProps,
-  {queryHistoryUpdate, queryAccountAssets, addMaterials, createReporter, revokeReporter, getAsset},
+  {queryHistoryUpdate, queryAccountAssets, addMaterials, createReporter, revokeReporter, getAsset, showUnlockDialogIfNotPassword},
 )(AssetDetailsContainer);

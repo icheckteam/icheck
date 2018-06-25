@@ -6,6 +6,7 @@ import HistoryUpdateQuantity from './history/HistoryUpdateQuantity';
 import HistoryTransfer from './history/HistoryTransfer';
 import HistoryUpdateWeight from './history/HistoryUpdateWeight';
 import HistoryUpdateLocation from './history/HistoryUpdateLocation';
+import { showUnlockDialogIfNotPassword } from '../actions/unlockDialog';
 function mapStateToProps(state) {
   return {
     history: state.history,
@@ -25,17 +26,21 @@ class HistoryUpdateContainer extends Component {
   }
 
   handleTransfer = (data) => {
-    this.props.transferAsset(data.recipient, {
-      ...this.props.authConfig,
-      assets: [this.props.match.params.id],
-    })
+    this.props.showUnlockDialogIfNotPassword(this.props.authConfig, ()=>{
+      this.props.transferAsset(data.recipient, {
+        ...this.props.authConfig,
+        assets: [this.props.match.params.id],
+      })
+    });
   }
 
   handleUpdateProperties = (data) => {
-    this.props.updateProperties(this.props.match.params.id, {
-      ...this.props.authConfig,
-      properties: data.properties,
-    })
+    this.props.showUnlockDialogIfNotPassword(this.props.authConfig, ()=>{
+      this.props.updateProperties(this.props.match.params.id, {
+        ...this.props.authConfig,
+        properties: data.properties,
+      })
+    });
   }
 
   
@@ -82,5 +87,5 @@ class HistoryUpdateContainer extends Component {
 
 export default connect(
   mapStateToProps,
-  { queryHistoryUpdate, updateProperties, transferAsset }
+  { queryHistoryUpdate, updateProperties, transferAsset, showUnlockDialogIfNotPassword }
 )(HistoryUpdateContainer);

@@ -9,11 +9,14 @@ import TableRow from '@material-ui/core/TableRow';
 import UpdateWeightForm from '../assets/UpdateWeightForm';
 
 const styles = theme => ({
-  container: theme.mixins.gutters({
-    paddingTop: 16,
-    paddingBottom: 16,
+  root: {
+    width: '100%',
     marginTop: theme.spacing.unit * 3,
-  }),
+    overflowX: 'auto',
+  },
+  table: {
+    minWidth: 700,
+  },
   textField: {
     marginRight: 20,
   },
@@ -29,6 +32,7 @@ class HistoryUpdateWeight  extends Component {
       <TableRow key={tx.hash}>
         <TableCell>{msg.value.properties[0].number_value} Kg</TableCell>
         <TableCell>{msg.value.sender}</TableCell>
+        <TableCell>{tx.time}</TableCell>
       </TableRow>
     )
   }

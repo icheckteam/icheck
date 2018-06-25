@@ -8,7 +8,8 @@ import { unlock, logout, getFreeToken } from '../actions/auth';
 import TransactionsContainer from './TransactionsContainer';
 import LoginContainer from './LoginContainer';
 import UnlockForm from './UnlockForm';
-
+import TextOverflow from '../components/TextOverflow';
+import { showUnlockDialogIfNotPassword } from '../actions/unlockDialog';
 const styles = theme => ({
   paper: theme.mixins.gutters({
     paddingTop: 16,
@@ -28,9 +29,11 @@ function mapStateToProps(state) {
 class WalletContainer extends Component {
 
   handleSubmit = () => (data) => {
-    this.props.send(data.recipient, {
-      ...this.props.auth.config,
-      amount: data.amount,
+    this.props.showUnlockDialogIfNotPassword(this.props.auth.config, () => {
+      this.props.send(data.recipient, {
+        ...this.props.auth.config,
+        amount: data.amount,
+      });
     });
   }
 
@@ -58,10 +61,11 @@ class WalletContainer extends Component {
           <div>
             <h1>Wallet management</h1>
             <Paper className={classes.paper}>
+
               <Button variant="raised" color="primary" onClick={this.handleLogout}>
                 Logout
               </Button> <br/>
-              <h3>Your address: {auth.addr}</h3>
+              <h3>Your address: <TextOverflow>{auth.addr}</TextOverflow></h3>
               <h3>Your tokens </h3> 
               <Button variant="raised" color="primary" onClick={this.handleGetFreeToken}>
                 Get free tomato
@@ -101,5 +105,5 @@ class WalletContainer extends Component {
 
 export default withStyles(styles)(connect(
   mapStateToProps,
-  { send, unlock, logout, getFreeToken}
+  { send, unlock, logout, getFreeToken, showUnlockDialogIfNotPassword}
 )(WalletContainer));
