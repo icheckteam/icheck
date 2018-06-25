@@ -1,11 +1,9 @@
 import { ACTION_TYPES } from "../common/constants";
 
 const initialState =  {
-  addr: "cosmosaccaddr189nvnm272dsh9tx6z8gjlpl2lxmy8x4jft6yjp",
+  addr: "",
   coins: [],
   config: {
-    name: "a2",
-    password: "12345678",
     chain_id: "ichain",
     gas: 50000,
     account_number: 1,
@@ -23,6 +21,26 @@ export default (state = initialState, action) => {
           ...state.config,
           account_number: action.payload.account_number,
           sequence: action.payload.sequence,
+        }
+      }
+    case ACTION_TYPES.LOAD_KEY_SUCCESS:
+      return {
+        ...state,
+        addr: action.key.address,
+        pub_key: action.key.pub_key,
+        config: {
+          ...state.config,
+          name: action.key.name,
+          account_number: 0,
+          sequence: 0,
+        }
+      }
+    case ACTION_TYPES.LOGIN_SUCCESS: 
+      return {
+        ...state,
+        config: {
+          ...state.config,
+          password: action.payload.password
         }
       }
     case ACTION_TYPES.UPDATE_PROPERTIES_SUCCESS:

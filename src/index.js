@@ -17,6 +17,6 @@ const store = createStore(
   rootReducer,
   applyMiddleware(...middleware)
 )
-store.dispatch(getAccount("cosmosaccaddr189nvnm272dsh9tx6z8gjlpl2lxmy8x4jft6yjp"))
+
 ReactDOM.render(<Root store={store} />, document.getElementById('root'));
 registerServiceWorker();

@@ -5,6 +5,7 @@ import { Paper } from '@material-ui/core';
 import SendForm from './SendForm';
 import { send } from '../actions/accounts';
 import TransactionsContainer from './TransactionsContainer';
+import LoginContainer from './LoginContainer';
 
 const styles = theme => ({
   paper: theme.mixins.gutters({
@@ -35,21 +36,27 @@ class WalletContainer extends Component {
     const { classes, auth} = this.props;
     return (
       <div>
-        <h1>Wallet management</h1>
-        <Paper className={classes.paper}>
-          {auth.coins.map(coin => {
-            return (
-              <p key={coin.denom}>{coin.amount} {coin.denom}</p>
-            )
-          })}
+        { auth.addr ?(
+          <div>
+            <h1>Wallet management</h1>
+            <Paper className={classes.paper}>
+              {auth.coins.map(coin => {
+                return (
+                  <p key={coin.denom}>{coin.amount} {coin.denom}</p>
+                )
+              })}
 
-          <SendForm
-            onSubmit={this.handleSubmit()}
-            coins={auth.coins}
-          />
-        </Paper>
+              <SendForm
+                onSubmit={this.handleSubmit()}
+                coins={auth.coins}
+              />
+            </Paper>
 
-        <TransactionsContainer/>
+            <TransactionsContainer/>
+          </div>
+        ) : (
+          <LoginContainer/>
+        )}
       </div>
     );
   }

@@ -18,6 +18,8 @@ import DownloadWalletContainer from './containers/DownloadWalletContainer';
 import TransactionsContainer from './containers/TransactionsContainer';
 import AssetDetailsContainer from './containers/AssetDetailsContainer';
 import HistoryUpdateContainer from './containers/HistoryUpdateContainer';
+import LoginContainer from './containers/LoginContainer';
+import NewKeyContainer from './containers/NewKeyContainer';
 export const Routes = () => {
   return(
     <App>
@@ -37,6 +39,8 @@ export const Routes = () => {
         <Route path={ROUTES.ASSETS} exact component={AssetsContainer} />
         <Route path="/assets/:id"  exact component={AssetDetailsContainer} />
         <Route path="/assets/:id/history/:name" component={HistoryUpdateContainer} />
+        <Route path="/login" component={LoginContainer} />
+        <Route path="/register" component={NewKeyContainer} />
       </div>
     </App>
   )
