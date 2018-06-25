@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import NewKeyForm from './NewKeyForm';
 import { getSeed, createKey } from '../actions/auth';
-
+import { Redirect } from 'react-router-dom'
 function mapStateToProps(state) {
   return {
     seed: state.auth.seed
@@ -10,7 +10,9 @@ function mapStateToProps(state) {
 }
 
 class NewKeyContainer extends Component {
-
+  state = {
+    redirect: false,
+  }
   componentDidMount() {
     this.props.getSeed()
   }
@@ -19,10 +21,19 @@ class NewKeyContainer extends Component {
     this.props.createKey({
       ...data,
       seed: this.props.seed,
-    })
+    }).then(() => {
+      this.setState({
+        redirect: true,
+      })
+    }); 
   }
 
   render() {
+    if (this.state.redirect) {
+      return (
+        <Redirect to='/'/>
+      )
+    }
     return (
       <div>
         <h1>New Key</h1>

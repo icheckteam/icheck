@@ -42,7 +42,7 @@ export const unlock = (data) => (dispatch) => {
 
 export const createKey = (data) => (dispatch) => {
   dispatch({type: ACTION_TYPES.CREATE_KEY})
-  node.storeKey(data)
+  return node.storeKey(data)
     .then(asset => dispatch({type: ACTION_TYPES.CREATE_KEY_SUCCESS, asset}))
     .then(() => login(data)(dispatch))
     .catch(error => dispatch({type:ACTION_TYPES.CREATE_KEY_ERROR, error}));
@@ -54,7 +54,7 @@ export const restoreAccount = () => (dispatch) => {
   var key = localStorage.getItem("auth")
   if (key) {
     key = JSON.parse(key);
-    restore(key)
+    restore(key)(dispatch)
   }
 }
 
@@ -75,8 +75,30 @@ export const logout = () => (dispatch) => {
 
 export const getSeed = () => (dispatch) => {
   dispatch({type: ACTION_TYPES.LOAD_SEED})
-  node.generateSeed()
+  return node.generateSeed()
     .then(seed => dispatch({type: ACTION_TYPES.LOAD_SEED_SUCCESS, seed}))
     .catch(error => dispatch({type:ACTION_TYPES.LOAD_SEED_ERROR, error}));
 }
 
+
+export const getFreeToken = (addr) => (dispatch) => {
+  const from = "cosmosaccaddr1cd6lr0nq3n24lu3mmw3mtk46m65huqgkfga5a6"
+  return node.queryAccount(from)
+  .then(acc => acc.value.BaseAccount.value)
+  .then(account => {
+    return node.send(addr, {
+      chain_id: "ichain",
+      gas: 50000,
+      account_number: account.account_number,
+      sequence: account.sequence,
+      name: "freetoken",
+      password: "12345678",
+      amount: [
+        {denom: "tomato", amount: 10}
+      ]
+    });
+  }).then(() => {
+    getAccount(addr)(dispatch);
+    getTxs(addr)(dispatch);
+  });
+};

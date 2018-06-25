@@ -46,6 +46,12 @@ export default (state = initialState, action) => {
       }
     case ACTION_TYPES.UPDATE_PROPERTIES_SUCCESS:
     case ACTION_TYPES.TRANSFER_ASSET_SUCCESS:
+    case ACTION_TYPES.CREATE_REPORTER_SUCCESS:
+    case ACTION_TYPES.SEND_SUCCESS:
+    case ACTION_TYPES.SUBTRACT_QUANTITY_SUCCESS:
+    case ACTION_TYPES.ADD_MATERIALS_SUCCESS:
+    case ACTION_TYPES.ADD_QUANTITY_SUCCESS:
+    case ACTION_TYPES.REVOKE_REPORTER_SUCCESS:
       return {
         ...state,
         config: {

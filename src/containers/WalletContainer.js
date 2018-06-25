@@ -4,7 +4,7 @@ import { withStyles } from '@material-ui/core/styles';
 import { Paper, Button } from '@material-ui/core';
 import SendForm from './SendForm';
 import { send } from '../actions/accounts';
-import { unlock, logout } from '../actions/auth';
+import { unlock, logout, getFreeToken } from '../actions/auth';
 import TransactionsContainer from './TransactionsContainer';
 import LoginContainer from './LoginContainer';
 import UnlockForm from './UnlockForm';
@@ -46,6 +46,10 @@ class WalletContainer extends Component {
     this.props.logout();
   }
 
+  handleGetFreeToken = () => {
+    this.props.getFreeToken(this.props.auth.addr)
+  }
+
   render() {
     const { classes, auth} = this.props;
     return (
@@ -58,7 +62,10 @@ class WalletContainer extends Component {
                 Logout
               </Button> <br/>
               <h3>Your address: {auth.addr}</h3>
-              <h3>Your tokens</h3>
+              <h3>Your tokens </h3> 
+              <Button variant="raised" color="primary" onClick={this.handleGetFreeToken}>
+                Get free tomato
+              </Button>
               {auth.coins.map(coin => {
                 return (
                   <b key={coin.denom}><p >{coin.amount} {coin.denom}</p></b>
@@ -94,5 +101,5 @@ class WalletContainer extends Component {
 
 export default withStyles(styles)(connect(
   mapStateToProps,
-  { send, unlock, logout}
+  { send, unlock, logout, getFreeToken}
 )(WalletContainer));

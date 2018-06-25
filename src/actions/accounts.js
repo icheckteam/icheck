@@ -54,8 +54,12 @@ export const handleLogin = (key, password) => (dispatch) => {
 
 export const getAccount = (address) => (dispatch) => {
   dispatch({type: ACTION_TYPES.LOAD_ACCOUNT})
-  node.queryAccount(address).then(acc => acc.value.BaseAccount.value)
-    .then(payload => dispatch({type: ACTION_TYPES.LOAD_ACCOUNT_SUCCESS, payload}))
+  return node.queryAccount(address).then(payload => {
+    if (payload) {
+      payload = payload.value.BaseAccount.value;
+      dispatch({type: ACTION_TYPES.LOAD_ACCOUNT_SUCCESS, payload})
+    }
+  })
     .catch(payload => dispatch({type: ACTION_TYPES.LOAD_ACCOUNT_ERROR, payload}))
 };
 
@@ -63,16 +67,19 @@ export const getAccount = (address) => (dispatch) => {
 
 export const send = (recipient, data) => (dispatch) => {
   dispatch({type: ACTION_TYPES.SEND})
-  node.send(recipient, data)
+  return node.send(recipient, data)
     .then(payload => dispatch({type: ACTION_TYPES.SEND_SUCCESS, payload}))
     .catch(payload => dispatch({type: ACTION_TYPES.SEND_ERROR, payload}))
 };
 
 export const getTxs = (addr) => (dispatch) => {
   dispatch({type: ACTION_TYPES.LOAD_TXS})
-  node.txs(addr)
+  return node.txs(addr)
     .then(payload => dispatch({type: ACTION_TYPES.LOAD_TXS_SUCCESS, payload}))
     .catch(payload => dispatch({type: ACTION_TYPES.LOAD_TXS_ERROR, payload}))
 };
+
+
+
 
 

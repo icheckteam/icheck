@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import ImportKeyForm from './ImportKeyForm';
 import {createKey } from '../actions/auth';
-
+import { Redirect } from 'react-router-dom'
 function mapStateToProps(state) {
   return {
     seed: state.auth.seed
@@ -10,10 +10,22 @@ function mapStateToProps(state) {
 }
 
 class ImportKeyContainer extends Component {
+  state = {
+    redirect: false,
+  }
   handleSubmit = (data) => {
-    this.props.createKey(data)
+    this.props.createKey(data).then(() => {
+      this.setState({
+        redirect: true,
+      })
+    }); 
   }
   render() {
+    if (this.state.redirect) {
+      return (
+        <Redirect to='/'/>
+      )
+    }
     return (
       <div>
         <h1>Import key</h1>
