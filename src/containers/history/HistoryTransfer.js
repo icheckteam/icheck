@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Paper } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -41,7 +40,7 @@ class HistoryTransfer  extends Component {
   render() {
     const { classes, txs, onTransfer } = this.props;
     return (
-      <Paper className={classes.root}>
+      <div className={classes.root}>
         <TransferForm onSubmit={onTransfer}/>
         <Table className={classes.table}>
           <TableHead>
@@ -60,7 +59,7 @@ class HistoryTransfer  extends Component {
             )}
           </TableBody>
         </Table>
-      </Paper>
+      </div>
     );
   }
 }

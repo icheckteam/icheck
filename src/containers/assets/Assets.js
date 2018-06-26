@@ -6,7 +6,6 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
 import { Link } from "react-router-dom";
 const styles = theme => ({
   root: {
@@ -23,7 +22,7 @@ function Assets(props) {
   const { classes, items } = props;
 
   return (
-    <Paper className={classes.root}>
+    <div className={classes.root}>
       <Table className={classes.table}>
         <TableHead>
           <TableRow>
@@ -35,7 +34,7 @@ function Assets(props) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {items ? items.map(item => {
+          {items && items.length > 0 ? items.map(item => {
             return (
               <TableRow key={item.id}>
                 <TableCell><Link to={"/assets/" + item.id}>{item.id}</Link></TableCell>
@@ -47,12 +46,12 @@ function Assets(props) {
             )
           }): (
              <TableRow>
-                <TableCell>No assets found</TableCell>
+                <TableCell colSpan={5}>No assets found</TableCell>
               </TableRow>
           )}
         </TableBody>
       </Table>
-    </Paper>
+    </div>
   );
 }
 

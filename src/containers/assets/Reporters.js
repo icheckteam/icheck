@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Paper } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -37,7 +36,7 @@ class Reporters extends Component {
   render() {
     const { classes, reporters, onAddReporter } = this.props;
     return (
-      <Paper className={classes.root}>
+      <div className={classes.root}>
         <AddReporter onSubmit={onAddReporter}/>
         <Table className={classes.table}>
           <TableHead>
@@ -49,12 +48,12 @@ class Reporters extends Component {
           <TableBody>
             {reporters ? reporters.map(this.renderRow): (
               <TableRow>
-                  <TableCell>No reporters found</TableCell>
+                  <TableCell colSpan={2}>No reporters found</TableCell>
                 </TableRow>
             )}
           </TableBody>
         </Table>
-      </Paper>
+      </div>
     );
   }
 }

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { withStyles } from '@material-ui/core/styles';
-import {  Table, TableHead, TableRow, TableCell, TableBody, Paper } from '@material-ui/core';
+import {  Table, TableHead, TableRow, TableCell, TableBody } from '@material-ui/core';
 const styles = theme => ({
   root: {
     width: '100%',
@@ -116,7 +116,7 @@ class Transactions extends Component {
   render() {
     const { classes, txs} = this.props;
     return (
-      <Paper className={classes.root}>
+      <div className={classes.root}>
         <Table className={classes.table}>
           <TableHead>
             <TableRow>
@@ -137,7 +137,7 @@ class Transactions extends Component {
             )}
           </TableBody>
         </Table>
-      </Paper>
+      </div>
     );
   }
 }

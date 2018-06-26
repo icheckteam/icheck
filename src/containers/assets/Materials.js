@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Paper } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -38,7 +37,7 @@ class Materials extends Component {
   render() {
     const { classes, materials, onAddMaterial } = this.props;
     return (
-      <Paper className={classes.root}>
+      <div className={classes.root}>
         <AddMaterialForm onSubmit={onAddMaterial}/>
         <Table className={classes.table}>
           <TableHead>
@@ -50,12 +49,12 @@ class Materials extends Component {
           <TableBody>
             {materials ? materials.map(this.renderRow): (
               <TableRow>
-                  <TableCell>No material found</TableCell>
+                  <TableCell colSpan={2}>No material found</TableCell>
                 </TableRow>
             )}
           </TableBody>
         </Table>
-      </Paper>
+      </div>
     );
   }
 }

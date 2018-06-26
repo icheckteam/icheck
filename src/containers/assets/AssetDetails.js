@@ -70,7 +70,7 @@ class AssetDetails extends Component {
           onClose={this.handleCloseDialog("openDialogNewAssetFromParent")}
           />
         <h1>{asset.name} - {asset.id}</h1>
-        <Paper className={classes.container} elevation={4}>
+        <div className={classes.container} elevation={4}>
           <Typography component="p">
             <b>Asset ID </b> : {asset.id}
           </Typography>
@@ -126,7 +126,7 @@ class AssetDetails extends Component {
           <Button variant="raised" color="primary" onClick={this.handleOpenDialog("openDialogNewAssetFromParent")}>
             New children asset
           </Button>
-        </Paper>
+        </div>
 
         <h2>Materials</h2> 
         <Materials 
