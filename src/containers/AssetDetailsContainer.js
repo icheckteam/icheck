@@ -10,7 +10,8 @@ import {
   revokeReporter, 
   getAsset, 
   subtractQuantity, 
-  addQuantity
+  addQuantity,
+  createAsset
 } from '../actions/assets'
 function mapStateToProps(state) {
   return {
@@ -70,6 +71,18 @@ class AssetDetailsContainer extends Component {
     });
   }
 
+  onNewAsset = (data) =>  {
+    this.props.showUnlockDialogIfNotPassword(this.props.auth.config, () => {
+      this.props.createAsset({
+        ...this.props.auth.config,
+        asset: {
+          ...data,
+          parent: this.props.asset.id,
+        }
+      })
+    });
+  }
+
   render() {
     const { asset} = this.props;
 
@@ -83,6 +96,7 @@ class AssetDetailsContainer extends Component {
         {asset ? (
           <div>
             <AssetDetails 
+              onNewAsset={this.onNewAsset}
               onSubtractQuantity={this.onSubtractQuantity}
               onAddQuantity={this.onAddQuantity}
               onAddReporter={this.onCreateReporter}
@@ -110,5 +124,6 @@ export default connect(
     showUnlockDialogIfNotPassword,
     subtractQuantity,
     addQuantity,
+    createAsset,
   },
 )(AssetDetailsContainer);

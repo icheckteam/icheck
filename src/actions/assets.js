@@ -7,6 +7,12 @@ import { ACTION_TYPES } from '../common/constants';
 export const createAsset = (data) => (dispatch) => {
   dispatch({type: ACTION_TYPES.CREATE_ASSET})
   return node.createAsset(data)
+    .then(() => {
+      if(data.asset.parent) {
+        queryHistoryUpdate(data.asset.parent)(dispatch)
+        waitForBlockHeight([getAsset(data.asset.parent)])(dispatch)
+      }
+    })
     .then(payload => dispatch({type: ACTION_TYPES.CREATE_ASSET_SUCCESS, payload}))
 }
 

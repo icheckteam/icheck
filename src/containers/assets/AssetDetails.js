@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import AddQuantityDialog from './AddQuantityDialog';
 import Button from '@material-ui/core/Button';
 import SubtractQuantityDialog from './SubtractQuantityDialog';
+import NewAssetFromParentDialog from './NewAssetFromParentDialog';
 const styles = theme => ({
   container: theme.mixins.gutters({
     paddingTop: 16,
@@ -25,6 +26,7 @@ class AssetDetails extends Component {
   state = {
     openDialogAddQuantity: false,
     openDialogSubtractQuantity: false,
+    openDialogNewAssetFromParent: false,
   }
 
   renderLocation(location) {
@@ -46,8 +48,8 @@ class AssetDetails extends Component {
    }
 
   render() {
-    const { classes, asset, onAddQuantity, onSubtractQuantity } = this.props;
-    const { openDialogAddQuantity, openDialogSubtractQuantity } = this.state;
+    const { classes, asset, onAddQuantity, onSubtractQuantity, onNewAsset } = this.props;
+    const { openDialogAddQuantity, openDialogSubtractQuantity, openDialogNewAssetFromParent } = this.state;
     return (
       <div>
         <AddQuantityDialog
@@ -60,6 +62,12 @@ class AssetDetails extends Component {
           open={openDialogSubtractQuantity}
           onClose={this.handleCloseDialog("openDialogSubtractQuantity")}
           />
+        <NewAssetFromParentDialog
+          onSubmit={onNewAsset}
+          open={openDialogNewAssetFromParent}
+          asset={asset}
+          onClose={this.handleCloseDialog("openDialogNewAssetFromParent")}
+          />
         <h1>{asset.name} - {asset.id}</h1>
         <Paper className={classes.container} elevation={4}>
           <Typography component="p">
@@ -71,11 +79,11 @@ class AssetDetails extends Component {
           </Typography>
 
           <Typography component="p">
-            <b>Asset Root </b> : <Link to={`/assets/${asset.id}`}>{asset.root}</Link>
+            <b>Asset Root </b> : <Link to={`/assets/${asset.root}`}>{asset.root}</Link>
           </Typography>
 
           <Typography component="p">
-            <b>Asset Parent </b> : <Link to={`/assets/${asset.id}`}>{asset.parent}</Link>
+            <b>Asset Parent </b> : <Link to={`/assets/${asset.parent}`}>{asset.parent}</Link>
           </Typography>
 
           <Typography component="p">
@@ -94,14 +102,16 @@ class AssetDetails extends Component {
             <b>Asset Quantity </b> : <Link to={`/assets/${asset.id}/history/quantity`}>{asset.quantity}</Link>
           </Typography>
 
-          <Typography component="p">
-            <Button variant="raised" color="primary" onClick={this.handleOpenDialog("openDialogAddQuantity")}>
-              Add Quantity
-            </Button> &nbsp;
-            <Button variant="raised" color="primary" onClick={this.handleOpenDialog("openDialogSubtractQuantity")}>
-              Subtract Quantity
-            </Button>
-          </Typography>
+          {!asset.root ? (
+            <Typography component="p">
+              <Button variant="raised" color="primary" onClick={this.handleOpenDialog("openDialogAddQuantity")}>
+                Add Quantity
+              </Button> &nbsp;
+              <Button variant="raised" color="primary" onClick={this.handleOpenDialog("openDialogSubtractQuantity")}>
+                Subtract Quantity
+              </Button>
+            </Typography>
+          ): null} 
 
 
            
@@ -111,6 +121,10 @@ class AssetDetails extends Component {
           <Typography component="p">
             <b>Location </b> : <Link to={`/assets/${asset.id}/history/location`}> {this.renderLocation(asset.location)}</Link>
           </Typography>
+
+          <Button variant="raised" color="primary" onClick={this.handleOpenDialog("openDialogNewAssetFromParent")}>
+            New children asset
+          </Button>
         </Paper>
 
         <h2>Materials</h2> 
