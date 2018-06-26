@@ -50,6 +50,24 @@ class HistoryUpdateQuantity extends Component {
           </div>
         );
         break;
+      case 'AD218BD2955E28':
+      type = "Add quantity";
+      quantity = msg.value.quantity
+      data = (
+        <div>
+          Add  {msg.value.quantity}  Asset:  {msg.value.asset_id}
+        </div>
+      );
+      break;  
+      case '0B121308856DA8':
+      type = "Sbutract quantity";
+      quantity = msg.value.quantity
+      data = (
+        <div>
+          Subtract  {msg.value.quantity} Asset: {msg.value.asset_id}
+        </div>
+      );
+      break;  
       default:
       break;
     }

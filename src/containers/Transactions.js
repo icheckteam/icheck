@@ -80,6 +80,22 @@ class Transactions extends Component {
         </div>
       );
       break;
+      case 'AD218BD2955E28':
+      type = "Add quantity";
+      data = (
+        <div>
+          Add  {msg.value.quantity}  Asset:  {msg.value.asset_id}
+        </div>
+      );
+      break;  
+      case '0B121308856DA8':
+      type = "Sbutract quantity";
+      data = (
+        <div>
+          Subtract  {msg.value.quantity} Asset: {msg.value.asset_id}
+        </div>
+      );
+      break;  
       default:
       break;
     }

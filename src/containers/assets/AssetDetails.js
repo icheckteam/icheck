@@ -4,6 +4,9 @@ import { withStyles } from '@material-ui/core/styles';
 import Materials from './Materials';
 import Reporters from './Reporters';
 import { Link } from "react-router-dom";
+import AddQuantityDialog from './AddQuantityDialog';
+import Button from '@material-ui/core/Button';
+import SubtractQuantityDialog from './SubtractQuantityDialog';
 const styles = theme => ({
   container: theme.mixins.gutters({
     paddingTop: 16,
@@ -19,6 +22,10 @@ const styles = theme => ({
 });
 
 class AssetDetails extends Component {
+  state = {
+    openDialogAddQuantity: false,
+    openDialogSubtractQuantity: false,
+  }
 
   renderLocation(location) {
     if (location) {
@@ -26,10 +33,33 @@ class AssetDetails extends Component {
     }
   }
 
+  handleCloseDialog = (dialog) => () => {
+   this.setState({
+     [dialog]: false,
+   })
+  }
+
+  handleOpenDialog = (dialog) => ()=> {
+    this.setState({
+      [dialog]: true,
+    })
+   }
+
   render() {
-    const { classes, asset } = this.props;
+    const { classes, asset, onAddQuantity, onSubtractQuantity } = this.props;
+    const { openDialogAddQuantity, openDialogSubtractQuantity } = this.state;
     return (
       <div>
+        <AddQuantityDialog
+          onSubmit={onAddQuantity}
+          open={openDialogAddQuantity}
+          onClose={this.handleCloseDialog("openDialogAddQuantity")}
+          />
+        <SubtractQuantityDialog
+          onSubmit={onSubtractQuantity}
+          open={openDialogSubtractQuantity}
+          onClose={this.handleCloseDialog("openDialogSubtractQuantity")}
+          />
         <h1>{asset.name} - {asset.id}</h1>
         <Paper className={classes.container} elevation={4}>
           <Typography component="p">
@@ -59,11 +89,22 @@ class AssetDetails extends Component {
            <Typography component="p">
             <b>Sub Type </b> : {asset.subtype}
           </Typography>
-
+ 
           <Typography component="p">
             <b>Asset Quantity </b> : <Link to={`/assets/${asset.id}/history/quantity`}>{asset.quantity}</Link>
           </Typography>
 
+          <Typography component="p">
+            <Button variant="raised" color="primary" onClick={this.handleOpenDialog("openDialogAddQuantity")}>
+              Add Quantity
+            </Button> &nbsp;
+            <Button variant="raised" color="primary" onClick={this.handleOpenDialog("openDialogSubtractQuantity")}>
+              Subtract Quantity
+            </Button>
+          </Typography>
+
+
+           
           <Typography component="p">
             <b>Weight </b> : <Link to={`/assets/${asset.id}/history/weight`}>{asset.weight}</Link>
           </Typography>

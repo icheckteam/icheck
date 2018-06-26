@@ -43,6 +43,15 @@ class Client {
     return this.request("POST", `/assets/${assetId}/materials`, data)
   }
 
+  addQuantity(assetId, data) {
+    return this.request("POST", `/assets/${assetId}/add`, data)
+  }
+
+  subtractQuantity(assetId, data) {
+    return this.request("POST", `/assets/${assetId}/subtract`, data)
+  }
+
+
   createReporter(assetId, data) {
     return this.request("POST", `/assets/${assetId}/reporters`, data)
   }

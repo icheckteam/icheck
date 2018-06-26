@@ -19,4 +19,4 @@ const store = createStore(
 )
 store.dispatch(restoreAccount())
 ReactDOM.render(<Root store={store} />, document.getElementById('root'));
-registerServiceWorker();
+registerServiceWorker(); 

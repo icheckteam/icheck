@@ -20,7 +20,7 @@ export default (state = initialState, action) => {
 
 export const getHistoryUpdateQuantity = state =>
   state.history.filter(item => {
-    return ["241AA14E79D880", "8E4151824E2B80"].indexOf(item.tx.value.msg.type) > -1;
+    return ["241AA14E79D880", "8E4151824E2B80", "AD218BD2955E28", "0B121308856DA8"].indexOf(item.tx.value.msg.type) > -1;
   });
 
 

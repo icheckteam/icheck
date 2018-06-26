@@ -15,26 +15,33 @@ export const updateProperties = (assetid, data) => (dispatch) => {
   dispatch({type: ACTION_TYPES.UPDATE_PROPERTIES})
   return node.updateProperties(assetid, data)
     .then(payload => dispatch({type: ACTION_TYPES.UPDATE_PROPERTIES_SUCCESS, payload}))
-    .then(() => getAsset(assetid)(dispatch))
     .then(() => queryHistoryUpdate(assetid)(dispatch))
+    .then(() => waitForBlockHeight([getAsset(assetid)])(dispatch))
     .catch(payload => dispatch({type:ACTION_TYPES.UPDATE_PROPERTIES_ERROR, payload}));
+}
+
+
+const waitForBlockHeight = (functions) => (dispatch) => {
+  setTimeout(() => {
+    functions.map(fn => fn(dispatch));
+  }, 2000);
 }
 
 export const addQuantity = (assetid, data) => (dispatch) => {
   dispatch({type: ACTION_TYPES.ADD_QUANTITY})
-  return node.addQuantity(data)
+  return node.addQuantity(assetid, data)
     .then(payload => dispatch({type: ACTION_TYPES.ADD_QUANTITY_SUCCESS, payload}))
-    .then(() => getAsset(assetid)(dispatch))
     .then(() => queryHistoryUpdate(assetid)(dispatch))
+    .then(() => waitForBlockHeight([getAsset(assetid)])(dispatch))
     .catch(payload => dispatch({type:ACTION_TYPES.ADD_QUANTITY_ERROR, payload}));
 }
 
 export const subtractQuantity = (assetid,data) => (dispatch) => {
   dispatch({type: ACTION_TYPES.SUBTRACT_QUANTITY})
-  return node.subtractQuantity(data)
+  return node.subtractQuantity(assetid, data)
     .then(payload => dispatch({type: ACTION_TYPES.SUBTRACT_QUANTITY_SUCCESS, payload}))
-    .then(() => getAsset(assetid)(dispatch))
     .then(() => queryHistoryUpdate(assetid)(dispatch))
+    .then(() => waitForBlockHeight([getAsset(assetid)])(dispatch))
     .catch(payload => dispatch({type:ACTION_TYPES.SUBTRACT_QUANTITY_ERROR, payload}));
 }
 
@@ -50,17 +57,17 @@ export const transferAsset = (recipient, data) => (dispatch) => {
   dispatch({type: ACTION_TYPES.TRANSFER_ASSET})
   return node.transferAsset(recipient, data)
     .then(payload => dispatch({type: ACTION_TYPES.TRANSFER_ASSET_SUCCESS, payload}))
-    .then(() => getAsset(data.assets[0])(dispatch))
     .then(() => queryHistoryUpdate(data.assets[0])(dispatch))
+    .then(() => waitForBlockHeight([getAsset(data.assets[0])])(dispatch))
     .catch(payload => dispatch({type:ACTION_TYPES.TRANSFER_ASSET_ERROR, payload}));
 }
 
-export const addMaterials = (assetId, data) => (dispatch) => {
+export const addMaterials = (assetid, data) => (dispatch) => {
   dispatch({type: ACTION_TYPES.ADD_MATERIALS})
-  return node.addMaterials(assetId, data)
+  return node.addMaterials(assetid, data)
     .then(payload => dispatch({type: ACTION_TYPES.ADD_MATERIALS_SUCCESS, payload}))
-    .then(() => getAsset(assetId)(dispatch))
-    .then(() => queryHistoryUpdate(assetId)(dispatch))
+    .then(() => queryHistoryUpdate(assetid)(dispatch))
+    .then(() => waitForBlockHeight([getAsset(assetid)])(dispatch))
     .catch(payload => dispatch({type:ACTION_TYPES.ADD_MATERIALS_ERROR, payload}));
 }
 
@@ -69,7 +76,7 @@ export const createReporter = (assetid,data) => (dispatch) => {
   return node.createReporter(assetid, data)
     .then(payload => dispatch({type: ACTION_TYPES.CREATE_REPORTER_SUCCESS, payload}))
     .then(() => queryHistoryUpdate(assetid)(dispatch))
-    .then(() => getAsset(assetid)(dispatch))
+    .then(() => waitForBlockHeight([getAsset(assetid)])(dispatch))
     .catch(payload => dispatch({type:ACTION_TYPES.CREATE_REPORTER_ERROR, payload}));
 }
 
@@ -79,8 +86,8 @@ export const revokeReporter = (assetid, reporter, data) => (dispatch) => {
   dispatch({type: ACTION_TYPES.REVOKE_REPORTER})
   return node.revokeReporter(assetid, reporter, data)
     .then(payload => dispatch({type: ACTION_TYPES.REVOKE_REPORTER_SUCCESS, payload}))
-    .then(() => getAsset(assetid)(dispatch))
     .then(() => queryHistoryUpdate(assetid)(dispatch))
+    .then(() => waitForBlockHeight([getAsset(assetid)])(dispatch))
     .catch(payload => dispatch({type:ACTION_TYPES.REVOKE_REPORTER_ERROR, payload}));
 }
 
@@ -89,7 +96,6 @@ export const queryAccountAssets = (account) => (dispatch) => {
   dispatch({type: ACTION_TYPES.LOAD_ASSETS})
   return node.getAccountAssets(account)
     .then(payload => dispatch({type: ACTION_TYPES.LOAD_ASSETS_SUCCESS, payload: payload}))
-    
     .catch(payload => dispatch({type:ACTION_TYPES.LOAD_ASSET_ERROR, payload}));
 }
 

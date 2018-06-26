@@ -2,7 +2,16 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import AssetDetails from './assets/AssetDetails';
 import { showUnlockDialogIfNotPassword } from '../actions/unlockDialog';
-import { queryHistoryUpdate, addMaterials, queryAccountAssets, createReporter, revokeReporter, getAsset} from '../actions/assets'
+import { 
+  queryHistoryUpdate, 
+  addMaterials, 
+  queryAccountAssets, 
+  createReporter, 
+  revokeReporter, 
+  getAsset, 
+  subtractQuantity, 
+  addQuantity
+} from '../actions/assets'
 function mapStateToProps(state) {
   return {
     auth: state.auth,
@@ -43,6 +52,24 @@ class AssetDetailsContainer extends Component {
     });
   }
 
+  onAddQuantity = (quantity) =>  {
+    this.props.showUnlockDialogIfNotPassword(this.props.auth.config, () => {
+      this.props.addQuantity(this.props.match.params.id, {
+        ...this.props.auth.config,
+        quantity,
+      })
+    });
+  }
+
+  onSubtractQuantity = (quantity) =>  {
+    this.props.showUnlockDialogIfNotPassword(this.props.auth.config, () => {
+      this.props.subtractQuantity(this.props.match.params.id, {
+        ...this.props.auth.config,
+        quantity,
+      })
+    });
+  }
+
   render() {
     const { asset} = this.props;
 
@@ -55,7 +82,9 @@ class AssetDetailsContainer extends Component {
       <div>
         {asset ? (
           <div>
-            <AssetDetails
+            <AssetDetails 
+              onSubtractQuantity={this.onSubtractQuantity}
+              onAddQuantity={this.onAddQuantity}
               onAddReporter={this.onCreateReporter}
               onRevokeReporter={this.onRevokeReporter}
               onAddMaterial={this.onAddMaterial}
@@ -71,5 +100,15 @@ class AssetDetailsContainer extends Component {
 
 export default connect(
   mapStateToProps,
-  {queryHistoryUpdate, queryAccountAssets, addMaterials, createReporter, revokeReporter, getAsset, showUnlockDialogIfNotPassword},
+  {
+    queryHistoryUpdate, 
+    queryAccountAssets, 
+    addMaterials, 
+    createReporter, 
+    revokeReporter, 
+    getAsset, 
+    showUnlockDialogIfNotPassword,
+    subtractQuantity,
+    addQuantity,
+  },
 )(AssetDetailsContainer);
