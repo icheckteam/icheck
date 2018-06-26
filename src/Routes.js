@@ -12,10 +12,6 @@ import WarrantyContainer from './containers/WarrantyContainer';
 import MarketContainer from './containers/MarketContainer';
 import WalletContainer from './containers/WalletContainer';
 import IdentityContainer from './containers/IdentityContainer';
-import OpenWalletContainer from './containers/OpenWalletContainer';
-import NewWalletContainer from './containers/NewWalletContainer';
-import DownloadWalletContainer from './containers/DownloadWalletContainer';
-import TransactionsContainer from './containers/TransactionsContainer';
 import AssetDetailsContainer from './containers/AssetDetailsContainer';
 import HistoryUpdateContainer from './containers/HistoryUpdateContainer';
 import LoginContainer from './containers/LoginContainer';
@@ -33,10 +29,6 @@ export const Routes = () => {
         <Route path={ROUTES.MARKET} component={MarketContainer} />
         <Route path={ROUTES.WALLET} component={WalletContainer} />
         <Route path={ROUTES.IDENTITY} component={IdentityContainer} />
-        <Route path={ROUTES.OPEN_WALLET} component={OpenWalletContainer} />
-        <Route path={ROUTES.NEW_WALLET} component={NewWalletContainer} />
-        <Route path={ROUTES.DOWLOAD_WALLET_ACCOUNT} component={DownloadWalletContainer} />
-        <Route path={ROUTES.TRANSACTIONS} component={TransactionsContainer} />
         <Route path={ROUTES.ASSETS} exact component={AssetsContainer} />
         <Route path="/assets/:id"  exact component={AssetDetailsContainer} />
         <Route path="/assets/:id/history/:name" component={HistoryUpdateContainer} />
