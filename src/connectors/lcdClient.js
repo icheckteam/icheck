@@ -319,9 +319,75 @@ class Client {
 
 
 
-  // identity
-  createIdentity(data) {
+  /**
+   * createClaim
+   * 
+   * @param {Object} data  
+   * @param {String} data.name the username of the account 
+   * @param {String} data.password the password of the account 
+   * @param {String} data.gas the max gas of a transaction 
+   * @param {String} data.chain_id eg: ichain 
+   * @param {String} data.account_number the number of the account
+   * @param {String} data.claim_id 
+   * @param {String} data.context 
+   * @param {String} data.content 
+   * @param {Object} data.metadata
+   * @param {String} data.metadata.create_time 
+   * @param {String} data.metadata.expires
+   * @param {String} data.metadata.recipient 
+   * @param {Array<Object<denom,amount>>} data.fee
+   * @param {Bool} data.paid
+   */
+  createClaim(data) {
+    return this.request("POST", `/claims`, data);
+  },
 
+  /**
+   * revokeClaim
+   * 
+   * @param {Object} data  
+   * @param {String} data.name the username of the account 
+   * @param {String} data.password the password of the account 
+   * @param {String} data.gas the max gas of a transaction 
+   * @param {String} data.chain_id eg: ichain 
+   * @param {String} data.account_number the number of the account
+   * @param {String} data.revocation 
+   */
+  revokeClaim(claimId, data) {
+    return this.request("POST", `/claims/${claimId}/revoke`, data);
+  }
+
+  /**
+   * answerClaim
+   * 
+   * @param {Object} data  
+   * @param {String} data.name the username of the account 
+   * @param {String} data.password the password of the account 
+   * @param {String} data.gas the max gas of a transaction 
+   * @param {String} data.chain_id eg: ichain 
+   * @param {String} data.account_number the number of the account
+   * @param {String} data.response 0: unpaid, 1: paid 
+   */
+  answerClaim(claimId, data) {
+    return this.request("POST", `/claims/${claimId}/answer`, data);
+  }
+
+  /**
+   * answerClaim
+   * 
+   * @return {Claim}
+   */
+  getClaim(claimId) {
+    return this.request("GET", `/claims/${claimId}`);
+  }
+
+  /**
+   * answerClaim
+   * 
+   * @return {Claim}
+   */
+  getAccountClaims(address) {
+    return this.request("GET", `/accounts/${address}/claims`);
   }
 }
 
