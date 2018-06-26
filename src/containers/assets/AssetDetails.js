@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Paper, Typography } from '@material-ui/core';
+import {  Typography } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import Materials from './Materials';
 import Reporters from './Reporters';

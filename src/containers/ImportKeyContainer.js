@@ -17,7 +17,7 @@ class ImportKeyContainer extends Component {
     this.props.createKey(data).then(() => {
       this.setState({
         redirect: true,
-      })
+      });
     }); 
   }
   render() {
