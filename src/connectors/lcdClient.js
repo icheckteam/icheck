@@ -35,6 +35,11 @@ class Client {
   getAccountAssets(account) {
     return this.request("GET", `/accounts/${account}/assets`)
   }
+
+  getAssetChildrens(assetId) {
+    return this.request("GET", `/assets/${assetId}/children`)
+  }
+
   getAsset(assetId) {
     return this.request("GET", `/assets/${assetId}`)
   }

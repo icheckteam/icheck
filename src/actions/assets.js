@@ -109,6 +109,12 @@ export const queryAccountAssets = (account) => (dispatch) => {
 export const getAsset = (assetId) => (dispatch) => {
   dispatch({type: ACTION_TYPES.LOAD_ASSET})
   return node.getAsset(assetId)
+    .then(asset => {
+      return node.getAssetChildrens(assetId).then(children => {
+        asset.children  = children;
+        return asset;
+      });
+    })
     .then(asset => dispatch({type: ACTION_TYPES.LOAD_ASSET_SUCCESS, asset}))
     .catch(error => dispatch({type:ACTION_TYPES.LOAD_ASSET_ERROR, error}));
 }

@@ -8,6 +8,7 @@ import AddQuantityDialog from './AddQuantityDialog';
 import Button from '@material-ui/core/Button';
 import SubtractQuantityDialog from './SubtractQuantityDialog';
 import NewAssetFromParentDialog from './NewAssetFromParentDialog';
+import Assets from './Assets';
 const styles = theme => ({
   container: theme.mixins.gutters({
     paddingTop: 16,
@@ -136,6 +137,9 @@ class AssetDetails extends Component {
         <Reporters 
           onAddReporter={this.props.onAddReporter}
           reporters={asset.reporters}/>
+
+        <h2>Asset children</h2> 
+        <Assets items={asset.children}/>
       </div>
     );
   }
