@@ -98,7 +98,9 @@ export const getFreeToken = (addr) => (dispatch) => {
       ]
     });
   }).then(() => {
-    getAccount(addr)(dispatch);
+    setTimeout(() => {
+      getAccount(addr)(dispatch);
+    }, 2000);
     getTxs(addr)(dispatch);
   });
 };
