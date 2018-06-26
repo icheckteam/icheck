@@ -30,7 +30,9 @@ class CreateAssetContainer extends Component {
         ...this.props.authConfig,
         asset,
       }).then(() => {
-        this.props.queryAccountAssets(this.props.addr);
+        setTimeout(() => {
+          this.props.queryAccountAssets(this.props.addr);
+        }, 2000);
         this.setState({
           redirect: true,
         })
