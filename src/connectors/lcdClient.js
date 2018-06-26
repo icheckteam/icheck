@@ -340,7 +340,7 @@ class Client {
    */
   createClaim(data) {
     return this.request("POST", `/claims`, data);
-  },
+  }
 
   /**
    * revokeClaim
