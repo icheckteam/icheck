@@ -30,6 +30,7 @@ class Client {
    * @param {String} data.gas the max gas of a transaction 
    * @param {String} data.chain_id eg: ichain 
    * @param {String} data.account_number the number of the account
+   * @return {Promise<Object<check_tx<Object>, hash:string, height:number>}
    */
   request(method, path, data) {
     return this.api[method.toLowerCase()](path, data).then(res => res.data)
@@ -48,6 +49,7 @@ class Client {
    * @param {Array} data.amount
    * @param {String} data.amount[0].denom 
    * @param {Number } data.amount[0].amount 
+   * @return {Promise<Object<check_tx<Object>, hash:string, height:number>}
    */
   send(recipient, data) {
     return this.request("POST", `/accounts/${recipient}/send`, data)
@@ -77,6 +79,7 @@ class Client {
    * @param {Number} data.asset.quantity 
    * @param {Array<Object<name, type, value_?>>} data.asset.properties
    * @param {Array<Object<asset_id, quantity>>} data.materials 
+   * @return {Promise<Object<check_tx<Object>, hash:string, height:number>}
    */
   createAsset(data) {
     return this.request("POST", `/assets`, data)
@@ -120,6 +123,7 @@ class Client {
    * @param {String} data.chain_id eg: ichain 
    * @param {String} data.account_number the number of the account
    * @param {Array<Object<asset_id, quantity>>} data.materials 
+   * @return {Promise<Object<check_tx<Object>, hash:string, height:number>}
    */
   addMaterials(assetId, data) {
     return this.request("POST", `/assets/${assetId}/materials`, data)
@@ -136,6 +140,7 @@ class Client {
    * @param {String} data.chain_id eg: ichain 
    * @param {String} data.account_number the number of the account
    * @param {Number} quantity
+   * @return {Promise<Object<check_tx<Object>, hash:string, height:number>}
    */
   addQuantity(assetId, data) {
     return this.request("POST", `/assets/${assetId}/add`, data)
@@ -152,6 +157,7 @@ class Client {
    * @param {String} data.chain_id eg: ichain 
    * @param {String} data.account_number the number of the account
    * @param {Number} quantity
+   * @return {Promise<Object<check_tx<Object>, hash:string, height:number>}
    */
   subtractQuantity(assetId, data) {
     return this.request("POST", `/assets/${assetId}/subtract`, data)
@@ -170,6 +176,7 @@ class Client {
    * @param {String} data.account_number the number of the account
    * @param {String} data.reporter the address of the reporter
    * @param {Array<string>} data.properties 
+   * @return {Promise<Object<check_tx<Object>, hash:string, height:number>}
    */
   createReporter(assetId, data) {
     return this.request("POST", `/assets/${assetId}/reporters`, data)
@@ -186,6 +193,7 @@ class Client {
    * @param {String} data.chain_id eg: ichain 
    * @param {String} data.account_number the number of the account
    * @param {String} data.reporter the address of the reporter
+   * @return {Promise<Object<check_tx<Object>, hash:string, height:number>}
    */
   revokeReporter(assetId, reporter, data) {
     return this.request("POST", `/assets/${assetId}/reporters/${reporter}/revoke`, data)
@@ -203,6 +211,7 @@ class Client {
    * @param {String} data.account_number the number of the account
    * @param {String} data.reporter the address of the reporter
    * @param {Array<Object<name, type, value_?>>} data.properties
+   * @return {Promise<Object<check_tx<Object>, hash:string, height:number>}
    */
   updateProperties(assetId, data) {
     return this.request("POST", `/assets/${assetId}/properties`, data)
@@ -277,7 +286,7 @@ class Client {
    * @param {String} recipient the address of the recipient
    * @param {String} password 
    * @param {Array<string>} assets
-   * @return {Promise<Object<>}
+   * @return {Promise<Object<check_tx<Object>, hash:string, height:number>}
    */
   transferAsset(recipient, data) {
     return this.request("POST", `/accounts/${recipient}/transfer-asset`, data)
