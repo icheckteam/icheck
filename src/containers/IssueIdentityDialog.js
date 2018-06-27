@@ -5,6 +5,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import TextField from '@material-ui/core/TextField';
+import moment from 'moment';
 const templates = {
   realname_authentication: {
     id: {
@@ -65,11 +66,8 @@ class IssueIdentityDialog extends React.Component {
       claim_id: this.state.claim_id,
       context: this.state.context,
       content: this.state.content,
-      metadata: {
-        create_time: Date.now(),
-        recipient: this.state.recipient,
-        expires: this.state.expires,
-      }
+      recipient: this.state.recipient,
+      expires: moment(this.state.expires).unix(),
     });
     this.props.onClose();
   }
@@ -149,16 +147,13 @@ class IssueIdentityDialog extends React.Component {
             onChange={this.handleChange('recipient')}
             fullWidth
           />
-
           {this.renderTemplate()}
-
-          
-
           <TextField
             autoFocus
             margin="dense"
             id="expires"
             label="Expires"
+            type="date"
             value={this.state.expires}
             onChange={this.handleChange('expires')}
             fullWidth

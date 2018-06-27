@@ -18,8 +18,36 @@ const styles = theme => ({
   },
 });
 class IdentitiesList extends Component {
+
+  renderContent(claim) {
+    if (claim.content) {
+      switch (claim.context) {
+        case 'realname_authentication':
+        case 'vietgap_authentication':
+        return (
+          <div>
+            ID: {claim.content.id}  <br/>
+            Name: {claim.content.name} <br/>
+          </div>
+        )
+        case 'company_authentication':
+        return (
+          <div>
+            ID: {claim.content.id} <br/>
+            Name: {claim.content.name} <br/>
+            Email: {claim.content.email} <br/>
+            Website: {claim.content.website} <br/>
+            Taxcode: {claim.content.taxcode} <br/>
+          </div>
+        )
+        default:
+        break;
+      }
+    }
+  }
+
   render() {
-    const { identities, classes  } = this.props
+    const { claims, classes  } = this.props
     return (
       <div className={classes.root}>
         <Table className={classes.table}>
@@ -34,19 +62,20 @@ class IdentitiesList extends Component {
             </TableRow>
           </TableHead>
           <TableBody>
-            {identities ? identities.map(identity => {
+            {claims ? claims.map(claim => {
               return (
-                <TableRow key={identity.id}>
-                  <TableCell>{identity.context}</TableCell>
-                  <TableCell>{identity.name}</TableCell>
-                  <TableCell>{identity.metadata.issuer}</TableCell>
-                  <TableCell>{identity.metadata.create_time}</TableCell>
-                  <TableCell>{identity.metadata.expires}</TableCell>
+                <TableRow key={claim.id}>
+                  <TableCell>{claim.id}</TableCell>
+                  <TableCell>{claim.context}</TableCell>
+                  <TableCell>{this.renderContent(claim)}</TableCell>
+                  <TableCell>{claim.issuer}</TableCell>
+                  <TableCell>{claim.create_time}</TableCell>
+                  <TableCell>{claim.expires}</TableCell>
                 </TableRow>
               )
             }): (
               <TableRow>
-                  <TableCell colSpan={6}>No identities found</TableCell>
+                  <TableCell colSpan={6}>No claims found</TableCell>
                 </TableRow>
             )}
           </TableBody>

@@ -3,17 +3,23 @@ import { connect } from 'react-redux';
 import IdentitiesList from './IdentitiesList';
 import { Button } from '@material-ui/core';
 import IssueIdentityDialog from './IssueIdentityDialog';
-import { createClaim } from '../actions/claim';
+import { createClaim, getAccountClaims } from '../actions/claim';
 import { showUnlockDialogIfNotPassword } from '../actions/unlockDialog'
 function mapStateToProps(state) {
   return {
     auth: state.auth,
+    claims: state.claims.claims,
+    addr: state.auth.addr,
   };
 }
 
 class IdentityContainer extends Component {
   state = {
     openDialogIssueClaim: false,
+  }
+
+  componentDidMount() {
+    this.props.getAccountClaims(this.props.addr)
   }
 
   handlerIssueClaim  = (data) => {
@@ -39,6 +45,7 @@ class IdentityContainer extends Component {
     }
 
   render() {
+    const { claims } = this.props;
     return (
       <div>
         <IssueIdentityDialog 
@@ -53,7 +60,7 @@ class IdentityContainer extends Component {
             Issue an identity
           </Button>
         </div>
-        <IdentitiesList/>
+        <IdentitiesList claims={claims}/>
       </div>
     );
   }
@@ -61,5 +68,5 @@ class IdentityContainer extends Component {
 
 export default connect(
   mapStateToProps,
-  { createClaim, showUnlockDialogIfNotPassword }
+  { createClaim, showUnlockDialogIfNotPassword, getAccountClaims }
 )(IdentityContainer);

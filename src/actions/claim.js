@@ -12,7 +12,7 @@ export const createClaim = (data) => (dispatch) => {
 
 export const getAccountClaims = (address) => (dispatch) => {
   dispatch({type: ACTION_TYPES.LOAD_CLAIMS})
-  return node.getAccountIdentities(address)
-    .then(tx => dispatch({type: ACTION_TYPES.LOAD_CLAIMS_SUCCESS, tx}))
+  return node.getAccountClaims(address)
+    .then(claims => dispatch({type: ACTION_TYPES.LOAD_CLAIMS_SUCCESS, claims}))
     .catch(error => dispatch({type:ACTION_TYPES.LOAD_CLAIMS_ERROR, error}));
 }
