@@ -29,6 +29,7 @@ class Client {
    * @param {String} data.password the password of the account 
    * @param {String} data.gas the max gas of a transaction 
    * @param {String} data.chain_id eg: ichain 
+   * @param {String} data.sequence  
    * @param {String} data.account_number the number of the account
    * @return {Promise<Object<check_tx<Object>, hash:string, height:number>}
    */
@@ -388,6 +389,32 @@ class Client {
    */
   getAccountClaims(address) {
     return this.request("GET", `/accounts/${address}/claims`);
+  }
+
+
+  /**
+   * updateDelegations
+   * 
+   * @param {Object} data  
+   * @param {String} data.name the username of the account 
+   * @param {String} data.password the password of the account 
+   * @param {String} data.gas the max gas of a transaction 
+   * @param {String} data.chain_id eg: ichain 
+   * @param {String} data.sequence  
+   * @param {Array<Object<delegator_addr:string, validator_addr:string, bond: Object<denom:string,amount:number>>>} data.delegate 
+   * @param {Array<Object<delegator_addr:string, validator_addr:string, shares: string>>} data.unbond 
+   * @return {Promise<tx>}
+   */
+  updateDelegations(data) {
+    return this.request("POST", `/stake/delegations`, data);
+  }
+
+  /**
+   * updateDelegations
+   * @return {Promise<Validator>}
+   */
+  getValidators() {
+    return this.request("GET", `/stake/delegations`);
   }
 }
 

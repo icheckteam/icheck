@@ -25,6 +25,7 @@ class IdentityContainer extends Component {
   handlerIssueClaim  = (data) => {
     this.props.showUnlockDialogIfNotPassword(this.props.auth.config, () => {
       this.props.createClaim({
+        issuer: this.props.auth.addr,
         ...this.props.auth.config,
         ...data
       });
