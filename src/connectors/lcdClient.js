@@ -414,7 +414,7 @@ class Client {
    * @return {Promise<Validator>}
    */
   getValidators() {
-    return this.request("GET", `/stake/delegations`);
+    return this.request("GET", `/stake/validators`);
   }
 }
 
