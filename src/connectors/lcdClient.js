@@ -24,13 +24,14 @@ class Client {
    * 
    * @param {String} method POST/PUT/GET/DELETE
    * @param {String} path the api endpoint eg: /assets
-   * @param {Object} data  
-   * @param {String} data.name the username of the account 
-   * @param {String} data.password the password of the account 
-   * @param {String} data.gas the max gas of a transaction 
-   * @param {String} data.chain_id eg: ichain 
-   * @param {String} data.sequence  
-   * @param {String} data.account_number the number of the account
+   * @param {Object} data
+   * @param {Object} data.base_req
+   * @param {String} data.base_req.name the username of the account 
+   * @param {String} data.base_req.password the password of the account 
+   * @param {String} data.base_req.gas the max gas of a transaction 
+   * @param {String} data.base_req.chain_id eg: ichain 
+   * @param {String} data.base_req.sequence  
+   * @param {String} data.base_req.account_number the number of the account
    * @return {Promise<Object<check_tx<Object>, hash:string, height:number>}
    */
   request(method, path, data) {
@@ -41,12 +42,8 @@ class Client {
    * send send token
    * 
    * @param {String} recipient the recipient address
-   * @param {Object} data  
-   * @param {String} data.name the username of the account 
-   * @param {String} data.password the password of the account 
-   * @param {String} data.gas the max gas of a transaction 
-   * @param {String} data.chain_id eg: ichain 
-   * @param {String} data.account_number the number of the account
+   * @param {Object} data
+   * @param {BaseReq} data.base_req
    * @param {Array} data.amount
    * @param {String} data.amount[0].denom 
    * @param {Number } data.amount[0].amount 
@@ -69,11 +66,7 @@ class Client {
    * createAsset create an asset
    * 
    * @param {Object} data  
-   * @param {String} data.name the username of the account 
-   * @param {String} data.password the password of the account 
-   * @param {String} data.gas the max gas of a transaction 
-   * @param {String} data.chain_id eg: ichain 
-   * @param {String} data.account_number the number of the account
+   * @param {BaseReq} data.base_req
    * @param {Object} data.asset
    * @param {String} data.asset.asset_id the id of the asset 
    * @param {String} data.asset.name the name of the asset
@@ -118,11 +111,7 @@ class Client {
    * 
    * @param {String} assetId
    * @param {Object} data  
-   * @param {String} data.name the username of the account 
-   * @param {String} data.password the password of the account 
-   * @param {String} data.gas the max gas of a transaction 
-   * @param {String} data.chain_id eg: ichain 
-   * @param {String} data.account_number the number of the account
+   * @param {BaseReq} data.base_req
    * @param {Array<Object<asset_id, quantity>>} data.materials 
    * @return {Promise<Object<check_tx<Object>, hash:string, height:number>}
    */
@@ -135,11 +124,7 @@ class Client {
    * 
    * @param {String} assetId
    * @param {Object} data  
-   * @param {String} data.name the username of the account 
-   * @param {String} data.password the password of the account 
-   * @param {String} data.gas the max gas of a transaction 
-   * @param {String} data.chain_id eg: ichain 
-   * @param {String} data.account_number the number of the account
+   * @param {BaseReq} data.base_req
    * @param {Number} quantity
    * @return {Promise<Object<check_tx<Object>, hash:string, height:number>}
    */
@@ -152,11 +137,7 @@ class Client {
    * 
    * @param {String} assetId
    * @param {Object} data  
-   * @param {String} data.name the username of the account 
-   * @param {String} data.password the password of the account 
-   * @param {String} data.gas the max gas of a transaction 
-   * @param {String} data.chain_id eg: ichain 
-   * @param {String} data.account_number the number of the account
+   * @param {BaseReq} data.base_req
    * @param {Number} quantity
    * @return {Promise<Object<check_tx<Object>, hash:string, height:number>}
    */
@@ -170,17 +151,28 @@ class Client {
    * 
    * @param {String} assetId
    * @param {Object} data  
-   * @param {String} data.name the username of the account 
-   * @param {String} data.password the password of the account 
-   * @param {String} data.gas the max gas of a transaction 
-   * @param {String} data.chain_id eg: ichain 
-   * @param {String} data.account_number the number of the account
-   * @param {String} data.reporter the address of the reporter
+   * @param {BaseReq} data.base_req
+   * @param {String} data.recipient
    * @param {Array<string>} data.properties 
+   * @param {Number} data.role  1:owner, 2:reporter
    * @return {Promise<Object<check_tx<Object>, hash:string, height:number>}
    */
-  createReporter(assetId, data) {
-    return this.request("POST", `/assets/${assetId}/reporters`, data)
+  createProposal(assetId, data) {
+    return this.request("POST", `/assets/${assetId}/proposals`, data)
+  }
+  
+  /**
+   * createReporter
+   * 
+   * @param {String} assetId
+   * @param {Object} data  
+   * @param {BaseReq} data.base_req
+   * @param {String} data.recipient
+   * @param {Number} data.response  1:accepted, 2:cancel, 3:rejected
+   * @return {Promise<Object<check_tx<Object>, hash:string, height:number>}
+   */
+  answerProposal(assetId, data) {
+    return this.request("POST", `/assets/${assetId}/proposals`, data)
   }
 
   /**
@@ -188,11 +180,7 @@ class Client {
    * 
    * @param {String} assetId
    * @param {Object} data  
-   * @param {String} data.name the username of the account 
-   * @param {String} data.password the password of the account 
-   * @param {String} data.gas the max gas of a transaction 
-   * @param {String} data.chain_id eg: ichain 
-   * @param {String} data.account_number the number of the account
+   * @param {BaseReq} data.base_req
    * @param {String} data.reporter the address of the reporter
    * @return {Promise<Object<check_tx<Object>, hash:string, height:number>}
    */
@@ -205,11 +193,7 @@ class Client {
    * 
    * @param {String} assetId
    * @param {Object} data  
-   * @param {String} data.name the username of the account 
-   * @param {String} data.password the password of the account 
-   * @param {String} data.gas the max gas of a transaction 
-   * @param {String} data.chain_id eg: ichain 
-   * @param {String} data.account_number the number of the account
+   * @param {BaseReq} data.base_req
    * @param {String} data.reporter the address of the reporter
    * @param {Array<Object<name, type, value_?>>} data.properties
    * @return {Promise<Object<check_tx<Object>, hash:string, height:number>}
@@ -324,11 +308,7 @@ class Client {
    * createIdentity
    * 
    * @param {Object} data  
-   * @param {String} data.name the username of the account 
-   * @param {String} data.password the password of the account 
-   * @param {String} data.gas the max gas of a transaction 
-   * @param {String} data.chain_id eg: ichain 
-   * @param {String} data.account_number the number of the account
+   * @param {BaseReq} data.base_req
    */
   createIdentity(data) {
     return this.request("POST", `/claims`, data);
@@ -339,11 +319,7 @@ class Client {
    * 
    * @param {Object} data  
    * @param {Number} identityId
-   * @param {String} data.name the username of the account 
-   * @param {String} data.password the password of the account 
-   * @param {String} data.gas the max gas of a transaction 
-   * @param {String} data.chain_id eg: ichain 
-   * @param {String} data.account_number the number of the account
+   * @param {BaseReq} data.base_req
    * @param {Object<CertValue{property: string, type: string, data: {}, confidence: bool}>} values
    */
   addCerts(identityId, data) {
@@ -357,11 +333,7 @@ class Client {
    * @param {Object} data  
    * @param {Number} identityId
    * @param {Boolean} confidence 
-   * @param {String} data.name the username of the account 
-   * @param {String} data.password the password of the account 
-   * @param {String} data.gas the max gas of a transaction 
-   * @param {String} data.chain_id eg: ichain 
-   * @param {String} data.account_number the number of the account
+   * @param {BaseReq} data.base_req
    */
   claim(identityId, confidence, data) {
     return this.addCerts(identityId, {
@@ -379,11 +351,7 @@ class Client {
    * answerClaim
    * 
    * @param {Object} data  
-   * @param {String} data.name the username of the account 
-   * @param {String} data.password the password of the account 
-   * @param {String} data.gas the max gas of a transaction 
-   * @param {String} data.chain_id eg: ichain 
-   * @param {String} data.account_number the number of the account
+   * @param {BaseReq} data.base_req
    * @param {Boolean} data.trust 
    */
   addTrust(trusting, data) {
@@ -437,11 +405,7 @@ class Client {
    * updateDelegations
    * 
    * @param {Object} data  
-   * @param {String} data.name the username of the account 
-   * @param {String} data.password the password of the account 
-   * @param {String} data.gas the max gas of a transaction 
-   * @param {String} data.chain_id eg: ichain 
-   * @param {String} data.sequence  
+   * @param {BaseReq} data.base_req
    * @param {Array<Object<delegator_addr:string, validator_addr:string, bond: Object<denom:string,amount:number>>>} data.delegate 
    * @param {Array<Object<delegator_addr:string, validator_addr:string, shares: string>>} data.unbond 
    * @return {Promise<tx>}
