@@ -321,7 +321,7 @@ class Client {
 
 
   /**
-   * createClaim
+   * createIdentity
    * 
    * @param {Object} data  
    * @param {String} data.name the username of the account 
@@ -329,17 +329,8 @@ class Client {
    * @param {String} data.gas the max gas of a transaction 
    * @param {String} data.chain_id eg: ichain 
    * @param {String} data.account_number the number of the account
-   * @param {String} data.claim_id 
-   * @param {String} data.context 
-   * @param {String} data.content 
-   * @param {Object} data.metadata
-   * @param {String} data.metadata.create_time 
-   * @param {String} data.metadata.expires
-   * @param {String} data.metadata.recipient 
-   * @param {Array<Object<denom,amount>>} data.fee
-   * @param {Bool} data.paid
    */
-  createClaim(data) {
+  createIdentity(data) {
     return this.request("POST", `/claims`, data);
   }
 
@@ -347,15 +338,17 @@ class Client {
    * revokeClaim
    * 
    * @param {Object} data  
+   * @param {Number} identityId
    * @param {String} data.name the username of the account 
    * @param {String} data.password the password of the account 
    * @param {String} data.gas the max gas of a transaction 
    * @param {String} data.chain_id eg: ichain 
    * @param {String} data.account_number the number of the account
    * @param {String} data.revocation 
+   * @param {Object<CertValue{property: string, type: string, data: {}, confidence: bool}>}
    */
-  revokeClaim(claimId, data) {
-    return this.request("POST", `/claims/${claimId}/revoke`, data);
+  addCerts(identityId, data) {
+    return this.request("POST", `/identities/${identityId}/certs`, data);
   }
 
   /**
@@ -367,28 +360,49 @@ class Client {
    * @param {String} data.gas the max gas of a transaction 
    * @param {String} data.chain_id eg: ichain 
    * @param {String} data.account_number the number of the account
-   * @param {String} data.response 0: unpaid, 1: paid 
+   * @param {Boolean} data.trust 
    */
-  answerClaim(claimId, data) {
-    return this.request("POST", `/claims/${claimId}/answer`, data);
+  addTrust(trusting, data) {
+    return this.request("POST", `/accounts/${trusting}/trust`, data);
   }
 
   /**
-   * answerClaim
+   * getIdentitiesByAccount
    * 
    * @return {Claim}
    */
-  getClaim(claimId) {
-    return this.request("GET", `/claims/${claimId}`);
+  getIdentitiesByAccount(addr) {
+    return this.request("GET", `/accounts/${addr}/identities`);
   }
 
   /**
-   * answerClaim
+   * getClaimed
    * 
    * @return {Claim}
    */
-  getAccountClaims(address) {
-    return this.request("GET", `/accounts/${address}/claims`);
+  getClaimed(address) {
+    return this.request("GET", `/accounts/${address}/claimed`);
+  }
+  
+  /**
+   * getCertsByIdentity
+   * 
+   * @return {Claim}
+   */
+  getCertsByIdentity(identityId, params) {
+    return this.request("GET", this.buildUrlSearchParams(`/identities/${identityId}/certs`, params));
+  }
+  
+  buildUrlSearchParams(url, params) {
+    var searchParams = new URLSearchParams();
+    Object.keys(params).forEach(key => {
+      searchParams.set(key, params[key]);
+    })
+    var searchParamString = searchParams.toString()
+    if (searchParamString) {
+      urlStr + "?"searchParamString
+    }
+    return urlStr
   }
 
 
