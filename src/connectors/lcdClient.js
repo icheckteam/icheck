@@ -344,11 +344,35 @@ class Client {
    * @param {String} data.gas the max gas of a transaction 
    * @param {String} data.chain_id eg: ichain 
    * @param {String} data.account_number the number of the account
-   * @param {String} data.revocation 
-   * @param {Object<CertValue{property: string, type: string, data: {}, confidence: bool}>}
+   * @param {Object<CertValue{property: string, type: string, data: {}, confidence: bool}>} values
    */
   addCerts(identityId, data) {
     return this.request("POST", `/identities/${identityId}/certs`, data);
+  }
+  
+  
+  /**
+   * claim
+   * 
+   * @param {Object} data  
+   * @param {Number} identityId
+   * @param {Boolean} confidence 
+   * @param {String} data.name the username of the account 
+   * @param {String} data.password the password of the account 
+   * @param {String} data.gas the max gas of a transaction 
+   * @param {String} data.chain_id eg: ichain 
+   * @param {String} data.account_number the number of the account
+   */
+  claim(identityId, confidence, data) {
+    return this.addCerts(identityId, {
+      ...data,
+      values: [
+        {
+          property: "owner",
+          confidence: confidence,
+        }
+      ]
+    })
   }
 
   /**
