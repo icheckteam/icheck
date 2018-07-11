@@ -266,18 +266,6 @@ class Client {
   }
 
   /**
-   * transferAsset
-   * 
-   * @param {String} recipient the address of the recipient
-   * @param {String} password 
-   * @param {Array<string>} assets
-   * @return {Promise<Object<check_tx<Object>, hash:string, height:number>}
-   */
-  transferAsset(recipient, data) {
-    return this.request("POST", `/accounts/${recipient}/transfer-asset`, data)
-  }
-
-  /**
    * txs
    * 
    * @param {String} addr 
