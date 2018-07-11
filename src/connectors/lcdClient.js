@@ -410,7 +410,10 @@ class Client {
   
   /**
    * getCertsByIdentity
-   * 
+   * @param {Object} params
+   * @param {String} trust 1 or nil 
+   * @param {String} certifier 
+   * @param {String} property
    * @return {Claim}
    */
   getCertsByIdentity(identityId, params) {
