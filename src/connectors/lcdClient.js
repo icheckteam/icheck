@@ -384,9 +384,9 @@ class Client {
     })
     var searchParamString = searchParams.toString()
     if (searchParamString) {
-      urlStr + "?"searchParamString
+      url += "?" + searchParamString
     }
-    return urlStr
+    return url
   }
 
 
