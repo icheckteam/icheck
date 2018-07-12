@@ -5,6 +5,7 @@ import axios from 'axios'
 
 class Client {
   constructor(server = "http://sandbox.icheck.com.vn:4396") {
+    this.server = server;
     this.api = axios.create({
       baseURL: server,
       timeout: 10000

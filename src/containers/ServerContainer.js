@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { TextField } from '@material-ui/core';
+import node from '../node'
 function mapStateToProps(state) {
   return {
 
@@ -8,9 +9,6 @@ function mapStateToProps(state) {
 }
 
 class ServerContainer extends Component {
-  state = {
-    api: "http://125.212.225.51:4396/"
-  }
   render() {
     return (
       <form noValidate autoComplete="off">
@@ -18,7 +16,7 @@ class ServerContainer extends Component {
           fullWidth={true}
             id="server"
             label="Rest Server"
-            value={this.state.api}
+            value={node.server}
             disabled={true}
             margin="normal"
           />

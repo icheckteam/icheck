@@ -3,10 +3,10 @@ const { app, Menu, shell } = require("electron")
 module.exports = function(mainWindow) {
   let template = [
     {
-      label: "Cosmos Voyager",
+      label: "Ichain Supply Chain Traceability",
       submenu: [
         {
-          label: "About Cosmos Voyager",
+          label: "About Ichain",
           selector: "orderFrontStandardAboutPanel:",
           click: () => openAboutMenu(mainWindow)
         },
@@ -44,7 +44,7 @@ module.exports = function(mainWindow) {
         {
           label: "Report An Issue",
           click() {
-            shell.openExternal("https://github.com/cosmos/voyager/issues/new")
+            shell.openExternal("https://github.com/icheckteam/icheck/issues/new")
           }
         },
         {

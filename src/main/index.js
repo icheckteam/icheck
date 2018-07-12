@@ -40,7 +40,7 @@ global.config.development = DEV || TEST
 const LOGGING = JSON.parse(process.env.LOGGING || "true") !== false
 const winURL = DEV
   ? `http://localhost:${config.wds_port}`
-  : `file://${__dirname}/../build/index.html`
+  : `file://${__dirname}/index.html`
 const LCD_PORT = DEV ? config.lcd_port : config.lcd_port_prod
 const MOCK =
   process.env.COSMOS_MOCKED !== undefined
@@ -182,7 +182,7 @@ function startProcess(name, args, env) {
     binPath = join(GOPATH, "bin", name)
   } else {
     // in production mode, use binaries packaged with app
-    binPath = join(__dirname, "..", "bin", name)
+    binPath = join(__dirname, "../app", "bin", name)
   }
 
   let argString = args.map(arg => JSON.stringify(arg)).join(" ")

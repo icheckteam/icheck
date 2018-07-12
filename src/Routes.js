@@ -34,10 +34,10 @@ export const Routes = () => {
           <Route path="/assets/:id"  exact component={AssetDetailsContainer} />
           <Route path="/assets/:id/history/:name" component={HistoryUpdateContainer} />
           <Route path="/login" component={LoginContainer} />
+          <Route path="/register" component={NewKeyContainer} />
+          <Route path="/import-key" component={ImportKeyContainer} />
         </div>
       </App>
-      <Route path="/register" component={NewKeyContainer} />
-      <Route path="/import-key" component={ImportKeyContainer} />
     </div>
   )
 }
