@@ -19,24 +19,26 @@ import NewKeyContainer from './containers/NewKeyContainer';
 import ImportKeyContainer from './containers/ImportKeyContainer';
 export const Routes = () => {
   return(
-    <App>
-      <div>
-        <Route path={ROUTES.HOME} exact component={HomeContainer} />
-        <Route path={ROUTES.CREATE_ASSET} component={CreateAssetContainer} />
-        <Route path={ROUTES.INVOICES} component={InvoicesContainer} />
-        <Route path={ROUTES.SHIPPING} component={ShippingContainer} />
-        <Route path={ROUTES.WARRANTY} component={WarrantyContainer} />
-        <Route path={ROUTES.MARKET} component={MarketContainer} />
-        <Route path={ROUTES.WALLET} component={WalletContainer} />
-        <Route path={ROUTES.IDENTITY} component={IdentityContainer} />
-        <Route path={ROUTES.ASSETS} exact component={AssetsContainer} />
-        <Route path="/assets/:id"  exact component={AssetDetailsContainer} />
-        <Route path="/assets/:id/history/:name" component={HistoryUpdateContainer} />
-        <Route path="/login" component={LoginContainer} />
-        <Route path="/register" component={NewKeyContainer} />
-        <Route path="/import-key" component={ImportKeyContainer} />
-      </div>
-    </App>
+    <div>
+      <App>
+        <div>
+          <Route path={ROUTES.HOME} exact component={HomeContainer} />
+          <Route path={ROUTES.CREATE_ASSET} component={CreateAssetContainer} />
+          <Route path={ROUTES.INVOICES} component={InvoicesContainer} />
+          <Route path={ROUTES.SHIPPING} component={ShippingContainer} />
+          <Route path={ROUTES.WARRANTY} component={WarrantyContainer} />
+          <Route path={ROUTES.MARKET} component={MarketContainer} />
+          <Route path={ROUTES.WALLET} component={WalletContainer} />
+          <Route path={ROUTES.IDENTITY} component={IdentityContainer} />
+          <Route path={ROUTES.ASSETS} exact component={AssetsContainer} />
+          <Route path="/assets/:id"  exact component={AssetDetailsContainer} />
+          <Route path="/assets/:id/history/:name" component={HistoryUpdateContainer} />
+          <Route path="/login" component={LoginContainer} />
+        </div>
+      </App>
+      <Route path="/register" component={NewKeyContainer} />
+      <Route path="/import-key" component={ImportKeyContainer} />
+    </div>
   )
 }
 
