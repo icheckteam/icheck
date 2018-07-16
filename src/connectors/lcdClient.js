@@ -335,6 +335,26 @@ class Client {
       ]
     })
   }
+  
+  /**
+   * revocation
+   * @param {Number} identityId
+   * @param {String} property
+   * @param {Object<id:string,type:string>} revocation
+   * @param {Object} data  
+   * @param {BaseReq} data.base_req
+   */
+  revocation(identityId, property,  revocation, data) {
+    return this.addCerts(identityId, {
+      ...data,
+      values: [
+        {
+          property: property,
+          revocation: revocation,
+        }
+      ]
+    })
+  }
 
   /**
    * answerClaim
