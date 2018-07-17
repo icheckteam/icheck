@@ -8,6 +8,16 @@
  *    type: "VietGapCertificate", 
  *    data: new VietGapCertificate({company:"demo"}),  
  *    expires: new Date().getTime(),
+ *  },{ 
+ *    property: "EmployeeCertificate", 
+ *    type: "EmployeeCertificate", 
+ *    data: new EmployeeCertificate({company:"demo"}),  
+ *    expires: new Date().getTime(),
+ *  },{ 
+ *    property: "RealnameCertificate", 
+ *    type: "RealnameCertificate", 
+ *    data: new RealnameCertificate({name:"demo"}),  
+ *    expires: new Date().getTime(),
  *  }
  * ])
  */
