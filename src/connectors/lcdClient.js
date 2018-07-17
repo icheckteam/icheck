@@ -300,7 +300,7 @@ class Client {
    * @param {BaseReq} data.base_req
    */
   createIdentity(data) {
-    return this.request("POST", `/claims`, data);
+    return this.request("POST", `/identities`, data);
   }
 
   /**
@@ -388,9 +388,9 @@ class Client {
   /**
    * getCertsByIdentity
    * @param {Object} params
-   * @param {String} trust 1 or nil 
-   * @param {String} certifier 
-   * @param {String} property
+   * @param {String} params.trust 1 or nil 
+   * @param {String} params.certifier 
+   * @param {String} params.property
    * @return {Claim}
    */
   getCertsByIdentity(identityId, params) {
