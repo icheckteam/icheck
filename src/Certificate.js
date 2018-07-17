@@ -35,3 +35,9 @@ export class EmployeeCertificate {
     this.department = data.department;
   }
 }
+
+export class RealnameCertificate {
+  constructor(data) {
+    this.name = data.name;
+  }
+}
