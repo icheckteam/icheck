@@ -56,7 +56,7 @@ export const getAccount = (address) => (dispatch) => {
   dispatch({type: ACTION_TYPES.LOAD_ACCOUNT})
   return node.queryAccount(address).then(payload => {
     if (payload) {
-      payload = payload.value.BaseAccount.value;
+      payload = payload.value.BaseAccount;
       dispatch({type: ACTION_TYPES.LOAD_ACCOUNT_SUCCESS, payload})
     }
   })

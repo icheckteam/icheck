@@ -5,9 +5,9 @@ const initialState =  {
   coins: [],
   config: {
     chain_id: "ichain",
-    gas: 50000,
-    account_number: 1,
-    sequence: 0,
+    gas: "50000",
+    account_number: "1",
+    sequence: "0",
   }
 };
 

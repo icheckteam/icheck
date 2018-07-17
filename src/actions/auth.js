@@ -3,6 +3,7 @@ import { ACTION_TYPES } from "../common/constants";
 import node from '../node'
 import { queryAccountAssets } from "./assets";
 
+
 export const getKey = (name) => (dispatch) => {
   dispatch({type: ACTION_TYPES.LOAD_KEY})
   return node.getKey(name)
@@ -79,28 +80,3 @@ export const getSeed = () => (dispatch) => {
     .then(seed => dispatch({type: ACTION_TYPES.LOAD_SEED_SUCCESS, seed}))
     .catch(error => dispatch({type:ACTION_TYPES.LOAD_SEED_ERROR, error}));
 }
-
-
-export const getFreeToken = (addr) => (dispatch) => {
-  const from = "cosmosaccaddr1cd6lr0nq3n24lu3mmw3mtk46m65huqgkfga5a6"
-  return node.queryAccount(from)
-  .then(acc => acc.value.BaseAccount.value)
-  .then(account => {
-    return node.send(addr, {
-      chain_id: "ichain",
-      gas: 50000,
-      account_number: account.account_number,
-      sequence: account.sequence,
-      name: "freetoken",
-      password: "12345678",
-      amount: [
-        {denom: "tomato", amount: 10}
-      ]
-    });
-  }).then(() => {
-    setTimeout(() => {
-      getAccount(addr)(dispatch);
-    }, 2000);
-    getTxs(addr)(dispatch);
-  });
-};

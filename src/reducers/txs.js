@@ -9,7 +9,9 @@ export default (state = initialState, action) => {
     case ACTION_TYPES.LOAD_TXS_SUCCESS: {
       return {
         ...state,
-        txs: action.payload,
+        txs: action.payload.sort((a, b) => {
+          return b.time - a.time;
+        }),
       }
     }
     default:

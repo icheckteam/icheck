@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import { Paper } from '@material-ui/core';
+import { Paper, MenuItem, Select } from '@material-ui/core';
 const styles = theme => ({
   container: theme.mixins.gutters({
     paddingTop: 16,
@@ -23,14 +23,14 @@ class CreateAssetFrom extends Component {
   state = {
     id: "",
     name: "",
-    quantity: 1,
-    asset_type: "asset",
+    quantity: "1",
     type: "",
     subtype: "",
     barcode: "",
-    weight: 0,
+    weight: "0",
     longitude: "",
     latitude: "",
+    unit: "kg",
   };
 
   handleChange = name => event => {
@@ -45,15 +45,15 @@ class CreateAssetFrom extends Component {
     if (this.state.name > 0) {
       properties.push({
         name: "weight",
-        type: 4,
-        number_value: Number(this.state.weight),
+        type: "4",
+        number_value: this.state.weight,
       })
     }
 
     if (this.state.longitude && this.state.latitude) {
       properties.push({
         name: "location",
-        type: 6,
+        type: "6",
         location_value: {
           longitude: this.state.longitude,
           latitude: this.state.latitude,
@@ -64,7 +64,7 @@ class CreateAssetFrom extends Component {
     if (this.state.type) {
       properties.push({
         name: "type",
-        type: 2,
+        type: "2",
         string_value: this.state.type
       })
     }
@@ -72,7 +72,7 @@ class CreateAssetFrom extends Component {
     if (this.state.subtype) {
       properties.push({
         name: "subtype",
-        type: 2,
+        type: "2",
         string_value: this.state.subtype
       })
     }
@@ -80,9 +80,9 @@ class CreateAssetFrom extends Component {
     this.props.onSubmit({
       asset_id: this.state.id,
       name: this.state.name,
-      quantity: Number(this.state.quantity),
-      asset_type: this.state.asset_type,
+      quantity: String(this.state.quantity),
       properties: properties.length > 0 ? properties: undefined,
+      unit: this.state.unit,
     });
   }
 
@@ -109,16 +109,26 @@ class CreateAssetFrom extends Component {
             onChange={this.handleChange('name')}
             margin="normal"
           />
-          <TextField
-            id="quantity"
-            label="Quantity"
-            type="number"
-            fullWidth={true}
-            className={classes.textField}
-            value={this.state.quantity}
-            onChange={this.handleChange('quantity')}
-            margin="normal"
-          /><br />
+          <div>
+            
+            <TextField
+              id="quantity"
+              label="Quantity"
+              type="number"
+              className={classes.textField}
+              value={this.state.quantity}
+              onChange={this.handleChange('quantity')}
+              margin="normal"
+            />
+
+            <Select
+              value={this.state.unit}
+              onChange={this.handleChange("unit")}
+            >
+              <MenuItem value="kg">Kg</MenuItem>
+            </Select>
+
+          </div>
           <TextField
             id="type"
             label="Type"

@@ -1,6 +1,7 @@
-import Client from './connectors/lcdClient'
-let lcdPort = getQueryParameter("lcd_port")
-function getQueryParameter(name) {
+import Client from './connectors/lcdClient';
+
+
+export const getQueryParameter = (name) =>{
   let queryString = window.location.search.substring(1)
   let pairs = queryString
     .split("&")
@@ -11,4 +12,7 @@ function getQueryParameter(name) {
   }
   return null
 }
-export default new Client("http://localhost:" + lcdPort);
+//let lcdPort = getQueryParameter("lcd_port")
+//export default new Client("http://localhost:" + lcdPort);
+
+export default new Client("http://sandbox.icheck.com.vn:4396");

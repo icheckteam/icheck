@@ -27,8 +27,8 @@ class CreateAssetContainer extends Component {
   handleSubmit =(asset) => {
     this.props.showUnlockDialogIfNotPassword(this.props.authConfig, () => {
       this.props.createAsset({
-        ...this.props.authConfig,
-        asset,
+        base_req: this.props.authConfig,
+        ...asset,
       }).then(() => {
         setTimeout(() => {
           this.props.queryAccountAssets(this.props.addr);

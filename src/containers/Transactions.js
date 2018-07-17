@@ -15,10 +15,10 @@ class Transactions extends Component {
 
   renderRow(tx, index) {
     let type, data;
-    let msg = tx.tx.value.msg;
+    let msg = tx.tx.value.msg[0];
     switch(msg.type) {
       // sendCoin 
-      case 'EAFDE32A2C87F8':
+      case 'cosmos-sdk/Send':
         type = "Send Token";
         data = (
           <div>
@@ -38,7 +38,7 @@ class Transactions extends Component {
         );
       break;
       // create asset
-      case '8E4151824E2B80':
+      case 'asset/CreateAsset':
         type = "Create Asset";
         data = (
           <div>
@@ -46,7 +46,7 @@ class Transactions extends Component {
           </div>
         );
       break;
-      case '241AA14E79D880':
+      case 'asset/AddMaterials':
         type = "Add material";
         data = (
           <div>
@@ -56,23 +56,7 @@ class Transactions extends Component {
           </div>
         );
         break;
-      case 'E9CB1A251E18F0':
-        type = "Add Reporter";
-        data = (
-          <div>
-            Reporter {msg.value.reporter} for asset {msg.value.asset_id}
-          </div>
-        );
-        break;
-      case '304553E545EF80':
-      type = "Transfer asset";
-      data = (
-        <div>
-          Transfer {msg.value.assets.join(",")} From: {msg.value.sender} To: {msg.value.recipient}
-        </div>
-      );
-      break;
-      case '06F6C30F9E7CF0':
+      case 'asset/UpdateProperties':
       type = "Update properties";
       data = (
         <div>
@@ -80,7 +64,7 @@ class Transactions extends Component {
         </div>
       );
       break;
-      case 'AD218BD2955E28':
+      case 'asset/AddQuantity':
       type = "Add quantity";
       data = (
         <div>
@@ -88,7 +72,7 @@ class Transactions extends Component {
         </div>
       );
       break;  
-      case '0B121308856DA8':
+      case 'asset/SubtractQuantity':
       type = "Sbutract quantity";
       data = (
         <div>
